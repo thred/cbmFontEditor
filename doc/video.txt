@@ -1,0 +1,48 @@
+
+
+PAL-B/G
+=======
+
+frame freq				= ~50 Hz
+line freq				= 15625 Hz
+video bandwidth			= 5000000 Hz
+color subcarrier		= 4433618.75 Hz - 25Hz = 4433593.75 Hz
+horizontal vis			= 81.25 %
+vertical sync			= 92 %
+
+C64
+---
+
+VResolution				= 43 + 200 + 49 = 292 pixel
+HResolution				= 46 + 320 + 36 = 402 pixel
+Aspect Ratio			= 1:0.936
+
+Carrier (Luma)
+--------------
+
+VResolution				= 15625 / 50 = 312.5 lines
+visibleVResolution		= 287.5 (575 interlaced) lines
+PPVResolution			= 292 / 287,5 = ~1
+HResolution 			= 5000000 / 15625 * 2 = 640 columns
+visibleHResolution		= 640 * 0.8125 = 520 columns
+PPHResolution			= 520 / 402 = 1.29353234
+
+Chroma
+------
+
+VResulution				= 15625 / 50 = 312.5 lines (PAL combines two lines!)
+visibleVResolution		= 287.5 (575 interlaced) lines
+PPVResolution			= 292 / 287,5 = ~1
+HResolution				= 4433618.75 / 15625 * 2 = 567.5032
+visibleHResolution		= 567.5032 * 0.8125 = 461.09635
+PPHResolution			= 461.09635 / 402 = 1.14700585
+
+
+video bandwidth	5.0 MHz	4.2 MHz
+color bandwidth		I: 1.3 MHz, Q: 0.4 MHz
+color subcarrier	4.43361875 MHz	3.57954545 MHz
+VIC-II pixel clock	7.882 MHz	8,18184 MHz
+VIC-II color clock	17.734472 MHz	14.31818 MHz
+C64 CPU clock	0.985248 MHz	1.02273 MHz
+C64 Cycles per line	63	65
+VIC-II total lines	312
