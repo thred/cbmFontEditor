@@ -4,18 +4,18 @@ import org.cbm.editor.font.model.Font;
 
 public class IndexedFontEvent extends FontEvent
 {
-	private final int index;
+    private final int index;
 
-	public IndexedFontEvent(final Font font, final int index)
-	{
-		super(font);
+    public IndexedFontEvent(final Font font, final int index)
+    {
+        super(font);
 
-		this.index = index;
-	}
+        this.index = index;
+    }
 
-	public int getIndex()
-	{
-		return index;
-	}
+    public int getIndex()
+    {
+        return index;
+    }
 
 }

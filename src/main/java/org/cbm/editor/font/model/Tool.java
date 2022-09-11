@@ -9,24 +9,24 @@ import org.cbm.editor.font.ui.action.SelectionToolAction;
 public enum Tool
 {
 
-	POINTER(PointerToolAction.class),
+    POINTER(PointerToolAction.class),
 
-	SELECTION(SelectionToolAction.class),
+    SELECTION(SelectionToolAction.class),
 
-	DRAW(DrawToolAction.class),
+    DRAW(DrawToolAction.class),
 
-	FILL(FillToolAction.class);
+    FILL(FillToolAction.class);
 
-	private final Class<? extends AbstractToolAction> actionType;
+    private final Class<? extends AbstractToolAction> actionType;
 
-	private Tool(final Class<? extends AbstractToolAction> actionType)
-	{
-		this.actionType = actionType;
-	}
+    private Tool(final Class<? extends AbstractToolAction> actionType)
+    {
+        this.actionType = actionType;
+    }
 
-	public Class<? extends AbstractToolAction> getActionType()
-	{
-		return actionType;
-	}
+    public Class<? extends AbstractToolAction> getActionType()
+    {
+        return actionType;
+    }
 
 }

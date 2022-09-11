@@ -6,8 +6,6 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 import javax.swing.Action;
 import javax.swing.BorderFactory;
@@ -27,190 +25,183 @@ import org.cbm.editor.font.Icon;
 public class UIUtils
 {
 
-	public static JLabel createLabel(final String text)
-	{
-		final JLabel label = new JLabel();
+    public static JLabel createLabel(final String text)
+    {
+        final JLabel label = new JLabel();
 
-		label.setText(text);
+        label.setText(text);
 
-		return label;
-	}
+        return label;
+    }
 
-	public static JButton createButton(final String id, final Object onObject, final String text, final int mnemonic)
-	{
-		final JButton button = new JButton(text);
+    public static JButton createButton(final String id, final Object onObject, final String text, final int mnemonic)
+    {
+        final JButton button = new JButton(text);
 
-		button.setMnemonic(mnemonic);
+        button.setMnemonic(mnemonic);
 
-		return button;
-	}
+        return button;
+    }
 
-	public static JButton createButton(final Icon icon)
-	{
-		final JButton button = new JButton(icon.getIcon());
+    public static JButton createButton(final Icon icon)
+    {
+        final JButton button = new JButton(icon.getIcon());
 
-//		button.setFocusPainted(false);
+        //		button.setFocusPainted(false);
 
-		return button;
-	}
+        return button;
+    }
 
-	public static JButton createToolBarButton(final Action action)
-	{
-		final JButton button = new JButton(action);
+    public static JButton createToolBarButton(final Action action)
+    {
+        final JButton button = new JButton(action);
 
-		button.setFocusPainted(false);
-		button.setFocusable(false);
-		button.setBorderPainted(false);
-		//		button.setHorizontalTextPosition(SwingConstants.CENTER);
-		//		button.setVerticalTextPosition(SwingConstants.BOTTOM);
-		//		button.setFont(button.getFont().deriveFont(button.getFont().getSize() * 0.8f));
-		button.setHideActionText(true);
+        button.setFocusPainted(false);
+        button.setFocusable(false);
+        button.setBorderPainted(false);
+        //		button.setHorizontalTextPosition(SwingConstants.CENTER);
+        //		button.setVerticalTextPosition(SwingConstants.BOTTOM);
+        //		button.setFont(button.getFont().deriveFont(button.getFont().getSize() * 0.8f));
+        button.setHideActionText(true);
 
-		return button;
-	}
+        return button;
+    }
 
-	public static JToggleButton createToolBarToggleButton(final Action action)
-	{
-		final JToggleButton button = new JToggleButton(action);
+    public static JToggleButton createToolBarToggleButton(final Action action)
+    {
+        final JToggleButton button = new JToggleButton(action);
 
-		button.setFocusPainted(false);
-		button.setFocusable(false);
-		//		button.setHorizontalTextPosition(SwingConstants.CENTER);
-		//		button.setVerticalTextPosition(SwingConstants.BOTTOM);
-		//		button.setFont(button.getFont().deriveFont(button.getFont().getSize() * 0.8f));
-		button.setHideActionText(true);
+        button.setFocusPainted(false);
+        button.setFocusable(false);
+        //		button.setHorizontalTextPosition(SwingConstants.CENTER);
+        //		button.setVerticalTextPosition(SwingConstants.BOTTOM);
+        //		button.setFont(button.getFont().deriveFont(button.getFont().getSize() * 0.8f));
+        button.setHideActionText(true);
 
-		return button;
-	}
+        return button;
+    }
 
-	public static JCheckBox createCheckBox(final String name, final boolean selected)
-	{
-		final JCheckBox checkBox = new JCheckBox(name);
+    public static JCheckBox createCheckBox(final String name, final boolean selected)
+    {
+        final JCheckBox checkBox = new JCheckBox(name);
 
-		checkBox.setSelected(selected);
+        checkBox.setSelected(selected);
 
-		return checkBox;
-	}
+        return checkBox;
+    }
 
-	public static JMenu createMenu(final String name, final int mnemonic)
-	{
-		final JMenu menu = new JMenu(name);
+    public static JMenu createMenu(final String name, final int mnemonic)
+    {
+        final JMenu menu = new JMenu(name);
 
-		menu.setMnemonic(mnemonic);
+        menu.setMnemonic(mnemonic);
 
-		return menu;
-	}
+        return menu;
+    }
 
-	public static Border createTitledBorder(final String title)
-	{
-		return BorderFactory.createTitledBorder(title);
-	}
+    public static Border createTitledBorder(final String title)
+    {
+        return BorderFactory.createTitledBorder(title);
+    }
 
-	public static void center(final JDialog dialog, final JFrame frame)
-	{
-		final Dimension dialogSize = dialog.getSize();
-		final Point frameLocation = frame.getLocation();
-		final Dimension frameSize = frame.getSize();
+    public static void center(final JDialog dialog, final JFrame frame)
+    {
+        final Dimension dialogSize = dialog.getSize();
+        final Point frameLocation = frame.getLocation();
+        final Dimension frameSize = frame.getSize();
 
-		dialog.setLocation(new Point(frameLocation.x + (frameSize.width - dialogSize.width) / 2, frameLocation.y
-		    + (frameSize.height - dialogSize.height) / 2));
-	}
+        dialog.setLocation(new Point(frameLocation.x + (frameSize.width - dialogSize.width) / 2,
+            frameLocation.y + (frameSize.height - dialogSize.height) / 2));
+    }
 
-	public static void persistentSplit(final String name, final JSplitPane pane, final int dividerLocation)
-	{
-		final String prefix = name + ":";
+    public static void persistentSplit(final String name, final JSplitPane pane, final int dividerLocation)
+    {
+        final String prefix = name + ":";
 
-		final int location = Prefs.get(prefix + "location", dividerLocation);
+        final int location = Prefs.get(prefix + "location", dividerLocation);
 
-		pane.setDividerLocation(location);
+        pane.setDividerLocation(location);
 
-		pane.addPropertyChangeListener(JSplitPane.DIVIDER_LOCATION_PROPERTY, new PropertyChangeListener()
-		{
+        pane.addPropertyChangeListener(JSplitPane.DIVIDER_LOCATION_PROPERTY,
+            evt -> Prefs.set(prefix + "location", pane.getDividerLocation()));
+    }
 
-			@Override
-			public void propertyChange(final PropertyChangeEvent evt)
-			{
-				Prefs.set(prefix + "location", pane.getDividerLocation());
-			}
+    public static void persistentLocation(final String name, final Component component, final Component relativeTo,
+        int width, int height)
+    {
+        final String prefix = name + ":";
 
-		});
-	}
+        int x, y;
 
-	public static void persistentLocation(final String name, final Component component, final Component relativeTo, int width, int height)
-	{
-		final String prefix = name + ":";
+        if (relativeTo == null)
+        {
+            final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-		int x, y;
+            x = (screenSize.width - width) / 2;
+            y = (screenSize.height - height) / 2;
+        }
+        else
+        {
+            final Point location = relativeTo.getLocation();
+            final Dimension size = relativeTo.getSize();
 
-		if (relativeTo == null)
-		{
-			final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            x = location.x + (size.width - width) / 2;
+            y = location.y + (size.height - height) / 2;
+        }
 
-			x = (screenSize.width - width) / 2;
-			y = (screenSize.height - height) / 2;
-		}
-		else
-		{
-			final Point location = relativeTo.getLocation();
-			final Dimension size = relativeTo.getSize();
+        x = Prefs.get(prefix + "x", x);
+        y = Prefs.get(prefix + "y", y);
+        width = Prefs.get(prefix + "width", width);
+        height = Prefs.get(prefix + "height", height);
 
-			x = location.x + (size.width - width) / 2;
-			y = location.y + (size.height - height) / 2;
-		}
+        component.setLocation(x, y);
+        component.setSize(width, height);
 
-		x = Prefs.get(prefix + "x", x);
-		y = Prefs.get(prefix + "y", y);
-		width = Prefs.get(prefix + "width", width);
-		height = Prefs.get(prefix + "height", height);
+        component.addComponentListener(new ComponentAdapter()
+        {
 
-		component.setLocation(x, y);
-		component.setSize(width, height);
+            /**
+             * @see java.awt.event.ComponentAdapter#componentMoved(java.awt.event.ComponentEvent)
+             */
+            @Override
+            public void componentMoved(final ComponentEvent e)
+            {
+                final Point location = ((Component) e.getSource()).getLocation();
 
-		component.addComponentListener(new ComponentAdapter()
-		{
+                Prefs.set(prefix + "x", location.x);
+                Prefs.set(prefix + "y", location.y);
+            }
 
-			/**
-			 * @see java.awt.event.ComponentAdapter#componentMoved(java.awt.event.ComponentEvent)
-			 */
-			@Override
-			public void componentMoved(final ComponentEvent e)
-			{
-				final Point location = ((Component) e.getSource()).getLocation();
+            /**
+             * @see java.awt.event.ComponentAdapter#componentResized(java.awt.event.ComponentEvent)
+             */
+            @Override
+            public void componentResized(final ComponentEvent e)
+            {
+                final Dimension dimension = ((Component) e.getSource()).getSize();
 
-				Prefs.set(prefix + "x", location.x);
-				Prefs.set(prefix + "y", location.y);
-			}
+                Prefs.set(prefix + "width", dimension.width);
+                Prefs.set(prefix + "height", dimension.height);
+            }
 
-			/**
-			 * @see java.awt.event.ComponentAdapter#componentResized(java.awt.event.ComponentEvent)
-			 */
-			@Override
-			public void componentResized(final ComponentEvent e)
-			{
-				final Dimension dimension = ((Component) e.getSource()).getSize();
+        });
+    }
 
-				Prefs.set(prefix + "width", dimension.width);
-				Prefs.set(prefix + "height", dimension.height);
-			}
+    public static boolean confirm(final Component parent, final String title, final String message)
+    {
+        final int result = JOptionPane.showConfirmDialog(parent, message, title, JOptionPane.YES_NO_OPTION);
 
-		});
-	}
+        return result == JOptionPane.YES_OPTION;
+    }
 
-	public static boolean confirm(final Component parent, final String title, final String message)
-	{
-		final int result = JOptionPane.showConfirmDialog(parent, message, title, JOptionPane.YES_NO_OPTION);
+    public static int confirmOrAbort(final Component parent, final String title, final String message)
+    {
+        return JOptionPane.showConfirmDialog(parent, message, title, JOptionPane.YES_NO_CANCEL_OPTION);
+    }
 
-		return (result == JOptionPane.YES_OPTION);
-	}
-
-	public static int confirmOrAbort(final Component parent, final String title, final String message)
-	{
-		return JOptionPane.showConfirmDialog(parent, message, title, JOptionPane.YES_NO_CANCEL_OPTION);
-	}
-
-	public static void error(final Component parent, final String title, final String message)
-	{
-		JOptionPane.showMessageDialog(parent, message, title, JOptionPane.ERROR_MESSAGE);
-	}
+    public static void error(final Component parent, final String title, final String message)
+    {
+        JOptionPane.showMessageDialog(parent, message, title, JOptionPane.ERROR_MESSAGE);
+    }
 
 }

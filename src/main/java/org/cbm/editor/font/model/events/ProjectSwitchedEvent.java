@@ -5,18 +5,18 @@ import org.cbm.editor.font.model.Project;
 public class ProjectSwitchedEvent extends ProjectEvent
 {
 
-	private final Project oldProject;
+    private final Project oldProject;
 
-	public ProjectSwitchedEvent(final Project oldProject, final Project newProject)
-	{
-		super(newProject);
+    public ProjectSwitchedEvent(final Project oldProject, final Project newProject)
+    {
+        super(newProject);
 
-		this.oldProject = oldProject;
-	}
+        this.oldProject = oldProject;
+    }
 
-	public Project getOldProject()
-	{
-		return oldProject;
-	}
+    public Project getOldProject()
+    {
+        return oldProject;
+    }
 
 }

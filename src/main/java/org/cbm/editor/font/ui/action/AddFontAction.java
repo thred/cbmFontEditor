@@ -15,52 +15,52 @@ import org.cbm.editor.font.model.events.ProjectEvent;
 public class AddFontAction extends AbstractAction
 {
 
-	private static final long serialVersionUID = -754841748100014203L;
+    private static final long serialVersionUID = -754841748100014203L;
 
-	private final ProjectAdapter projectAdapter;
+    private final ProjectAdapter projectAdapter;
 
-	public AddFontAction()
-	{
-		super("Add Font", Icon.ADD.getIcon());
+    public AddFontAction()
+    {
+        super("Add Font", Icon.ADD.getIcon());
 
-		projectAdapter = Registry.get(ProjectAdapter.class);
-		projectAdapter.bind(this);
+        projectAdapter = Registry.get(ProjectAdapter.class);
+        projectAdapter.bind(this);
 
-		putValue(SHORT_DESCRIPTION, "Adds a new font to the project");
-		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl shift PLUS"));
+        putValue(SHORT_DESCRIPTION, "Adds a new font to the project");
+        putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl shift PLUS"));
 
-		updateStatus();
-	}
+        updateStatus();
+    }
 
-	public void handleEvent(ProjectEvent event)
-	{
-		updateStatus();
-	}
+    public void handleEvent(ProjectEvent event)
+    {
+        updateStatus();
+    }
 
-	private void updateStatus()
-	{
-		setEnabled(projectAdapter.getProject() != null);
-	}
+    private void updateStatus()
+    {
+        setEnabled(projectAdapter.getProject() != null);
+    }
 
-	/**
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
-	@Override
-	public void actionPerformed(final ActionEvent e)
-	{
-		Project project = projectAdapter.getProject();
-		int index = project.indexOfFont(Registry.get(FontAdapter.class).getFont());
+    /**
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
+    @Override
+    public void actionPerformed(final ActionEvent e)
+    {
+        Project project = projectAdapter.getProject();
+        int index = project.indexOfFont(Registry.get(FontAdapter.class).getFont());
 
-		if (index < 0)
-		{
-			index = project.getNumberOfFonts();
-		}
-		else
-		{
-			index += 1;
-		}
+        if (index < 0)
+        {
+            index = project.getNumberOfFonts();
+        }
+        else
+        {
+            index += 1;
+        }
 
-		Registry.execute(new AddFontEdit(index));
-	}
+        Registry.execute(new AddFontEdit(index));
+    }
 
 }

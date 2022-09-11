@@ -7,52 +7,52 @@ import javax.swing.undo.CannotUndoException;
 public abstract class AbstractEdit extends AbstractUndoableEdit
 {
 
-	/**
-     * 
+    /**
+     *
      */
-	private static final long serialVersionUID = -8592329576374242124L;
-	private final String presentationName;
+    private static final long serialVersionUID = -8592329576374242124L;
+    private final String presentationName;
 
-	public AbstractEdit(final String presentationName)
-	{
-		super();
+    public AbstractEdit(final String presentationName)
+    {
+        super();
 
-		this.presentationName = presentationName;
-	}
+        this.presentationName = presentationName;
+    }
 
-	/**
-	 * @see javax.swing.undo.AbstractUndoableEdit#getPresentationName()
-	 */
-	@Override
-	public final String getPresentationName()
-	{
-		return presentationName;
-	}
+    /**
+     * @see javax.swing.undo.AbstractUndoableEdit#getPresentationName()
+     */
+    @Override
+    public final String getPresentationName()
+    {
+        return presentationName;
+    }
 
-	public abstract void execute();
+    public abstract void execute();
 
-	public abstract void rollback();
+    public abstract void rollback();
 
-	/**
-	 * @see javax.swing.undo.AbstractUndoableEdit#redo()
-	 */
-	@Override
-	public final void redo() throws CannotRedoException
-	{
-		super.redo();
+    /**
+     * @see javax.swing.undo.AbstractUndoableEdit#redo()
+     */
+    @Override
+    public final void redo() throws CannotRedoException
+    {
+        super.redo();
 
-		execute();
-	}
+        execute();
+    }
 
-	/**
-	 * @see javax.swing.undo.AbstractUndoableEdit#undo()
-	 */
-	@Override
-	public final void undo() throws CannotUndoException
-	{
-		super.undo();
+    /**
+     * @see javax.swing.undo.AbstractUndoableEdit#undo()
+     */
+    @Override
+    public final void undo() throws CannotUndoException
+    {
+        super.undo();
 
-		rollback();
-	}
+        rollback();
+    }
 
 }

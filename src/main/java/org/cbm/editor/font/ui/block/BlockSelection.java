@@ -12,61 +12,61 @@ import org.cbm.editor.font.util.XMLBuilder;
 public class BlockSelection
 {
 
-	public static final DataFlavor OBJECT_DATA_FLAVOR = new DataFlavor(BlockComponentTransferable.class, "Block Layer");
-	public static final DataFlavor IMAGE_DATA_FLAVOR = DataFlavor.imageFlavor;
-	public static final DataFlavor TEXT_DATA_FLAVOR = DataFlavor.stringFlavor;
+    public static final DataFlavor OBJECT_DATA_FLAVOR = new DataFlavor(BlockComponentTransferable.class, "Block Layer");
+    public static final DataFlavor IMAGE_DATA_FLAVOR = DataFlavor.imageFlavor;
+    public static final DataFlavor TEXT_DATA_FLAVOR = DataFlavor.stringFlavor;
 
-	private final Font font;
-	private final Block block;
-	private final Rectangle rectangle;
+    private final Font font;
+    private final Block block;
+    private final Rectangle rectangle;
 
-	public BlockSelection(Font font, Block block, Rectangle rectangle)
-	{
-		super();
+    public BlockSelection(Font font, Block block, Rectangle rectangle)
+    {
+        super();
 
-		this.font = font;
-		this.block = block;
-		this.rectangle = rectangle;
-	}
+        this.font = font;
+        this.block = block;
+        this.rectangle = rectangle;
+    }
 
-	public Font getFont()
-	{
-		return font;
-	}
+    public Font getFont()
+    {
+        return font;
+    }
 
-	public Block getBlock()
-	{
-		return block;
-	}
+    public Block getBlock()
+    {
+        return block;
+    }
 
-	public Rectangle getRectangle()
-	{
-		return rectangle;
-	}
+    public Rectangle getRectangle()
+    {
+        return rectangle;
+    }
 
-	public Image toImage()
-	{
-		return new DefaultBlockImage(font, block, rectangle).toImage();
-	}
+    public Image toImage()
+    {
+        return new DefaultBlockImage(font, block, rectangle).toImage();
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString()
-	{
-		XMLBuilder builder = new XMLBuilder();
+    /**
+     * {@inheritDoc}
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString()
+    {
+        XMLBuilder builder = new XMLBuilder();
 
-		builder.begin("cbm-font-block");
+        builder.begin("cbm-font-block");
 
-		block.exportBlock(builder);
-		font.exportFont(builder);
+        block.exportBlock(builder);
+        font.exportFont(builder);
 
-		builder.end();
+        builder.end();
 
-		return builder.toString();
-	}
+        return builder.toString();
+    }
 
 }

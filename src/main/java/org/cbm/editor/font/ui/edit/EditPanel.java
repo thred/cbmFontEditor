@@ -7,15 +7,15 @@ import javax.swing.JPanel;
 class EditPanel extends JPanel
 {
 
-	private static final long serialVersionUID = -7525044265060335116L;
+    private static final long serialVersionUID = -7525044265060335116L;
 
-	public EditPanel(JPanel blockPanel)
-	{
-		super(new BorderLayout());
+    public EditPanel(JPanel blockPanel)
+    {
+        super(new BorderLayout());
 
-		setOpaque(false);
+        setOpaque(false);
 
-		add(blockPanel, BorderLayout.CENTER);
-	}
+        add(blockPanel, BorderLayout.CENTER);
+    }
 
 }

@@ -5,18 +5,18 @@ import javax.swing.JToolBar;
 public class MainToolBarController
 {
 
-	private final MainToolBar view;
+    private final MainToolBar view;
 
-	public MainToolBarController()
-	{
-		super();
+    public MainToolBarController()
+    {
+        super();
 
-		view = new MainToolBar();
-	}
+        view = new MainToolBar();
+    }
 
-	public JToolBar getView()
-	{
-		return view;
-	}
+    public JToolBar getView()
+    {
+        return view;
+    }
 
 }

@@ -9,34 +9,33 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
-
 public class FooterComponent extends JPanel
 {
 
-	private static final long serialVersionUID = -847719239904727525L;
+    private static final long serialVersionUID = -847719239904727525L;
 
-	public FooterComponent(final JComponent... compoents)
-	{
-		super(new BorderLayout());
+    public FooterComponent(final JComponent... compoents)
+    {
+        super(new BorderLayout());
 
-		setOpaque(false);
+        setOpaque(false);
 
-		final JPanel panel = new JPanel(new GridBagLayout());
+        final JPanel panel = new JPanel(new GridBagLayout());
 
-		panel.setBorder(BorderFactory.createEmptyBorder(0, 16, 0, 16));
-		panel.setOpaque(false);
+        panel.setBorder(BorderFactory.createEmptyBorder(0, 16, 0, 16));
+        panel.setOpaque(false);
 
-		final Constraints c = new Constraints();
+        final Constraints c = new Constraints();
 
-		panel.add(new JLabel(), c.weight(1));
+        panel.add(new JLabel(), c.weight(1));
 
-		for (final JComponent component : compoents)
-		{
-			panel.add(component, c.next());
-		}
+        for (final JComponent component : compoents)
+        {
+            panel.add(component, c.next());
+        }
 
-		add(panel, BorderLayout.CENTER);
-		add(new JSeparator(), BorderLayout.NORTH);
-	}
+        add(panel, BorderLayout.CENTER);
+        add(new JSeparator(), BorderLayout.NORTH);
+    }
 
 }

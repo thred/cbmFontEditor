@@ -11,48 +11,48 @@ import org.cbm.editor.font.ui.block.select.SelectionLayer;
 public class BlockPanelController
 {
 
-	private final BlockPanel view;
+    private final BlockPanel view;
 
-	public BlockPanelController()
-	{
-		super();
+    public BlockPanelController()
+    {
+        super();
 
-		view = new BlockPanel();
-	}
+        view = new BlockPanel();
+    }
 
-	public JPanel getView()
-	{
-		return view;
-	}
+    public JPanel getView()
+    {
+        return view;
+    }
 
-	public void setRootLayer(BlockLayer layer)
-	{
-		view.setRootLayer(layer);
-	}
+    public void setRootLayer(BlockLayer layer)
+    {
+        view.setRootLayer(layer);
+    }
 
-	public void setSelectionLayer(SelectionLayer layer)
-	{
-		view.setSelectionLayer(layer);
-	}
+    public void setSelectionLayer(SelectionLayer layer)
+    {
+        view.setSelectionLayer(layer);
+    }
 
-	public void setDropLayer(DropLayer layer)
-	{
-		view.setDropLayer(layer);
-	}
+    public void setDropLayer(DropLayer layer)
+    {
+        view.setDropLayer(layer);
+    }
 
-	public void setHighlightLayer(HighlightLayer layer)
-	{
-		view.setHighlightLayer(layer);
-	}
+    public void setHighlightLayer(HighlightLayer layer)
+    {
+        view.setHighlightLayer(layer);
+    }
 
-	public void setPopupMenu(JPopupMenu popupMenu)
-	{
-		view.setPopupMenu(popupMenu);
-	}
+    public void setPopupMenu(JPopupMenu popupMenu)
+    {
+        view.setPopupMenu(popupMenu);
+    }
 
-	public BlockComponent getBlockComponent()
-	{
-		return view.getBlockComponent();
-	}
+    public BlockComponent getBlockComponent()
+    {
+        return view.getBlockComponent();
+    }
 
 }

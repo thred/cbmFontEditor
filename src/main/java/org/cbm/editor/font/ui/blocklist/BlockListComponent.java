@@ -30,64 +30,64 @@ import org.cbm.editor.font.util.UIUtils;
 public class BlockListComponent extends JPanel implements ListSelectionListener
 {
 
-	private static final long serialVersionUID = -2351694771933229775L;
+    private static final long serialVersionUID = -2351694771933229775L;
 
-	private final ProjectAdapter projectAdapter;
-	private final BlockAdapter blockAdapter;
-	private final JScrollPane listScrollPane;
-	private final JList<Block> blockList;
+    private final ProjectAdapter projectAdapter;
+    private final BlockAdapter blockAdapter;
+    private final JScrollPane listScrollPane;
+    private final JList<Block> blockList;
 
-	public BlockListComponent()
-	{
-		super(new BorderLayout());
+    public BlockListComponent()
+    {
+        super(new BorderLayout());
 
-		projectAdapter = Registry.get(ProjectAdapter.class).bind(this);
-		blockAdapter = Registry.get(BlockAdapter.class).bind(this);
+        projectAdapter = Registry.get(ProjectAdapter.class).bind(this);
+        blockAdapter = Registry.get(BlockAdapter.class).bind(this);
 
-		setOpaque(false);
+        setOpaque(false);
 
-		blockList = new JList<Block>(Registry.get(BlockListModel.class));
-		blockList.addListSelectionListener(this);
-		blockList.setFocusable(false);
-		blockList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        blockList = new JList<>(Registry.get(BlockListModel.class));
+        blockList.addListSelectionListener(this);
+        blockList.setFocusable(false);
+        blockList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-		listScrollPane = new FocusableJScrollPane(blockList);
-		listScrollPane.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Colors.darker(getBackground(), 0.1f)));
+        listScrollPane = new FocusableJScrollPane(blockList);
+        listScrollPane.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Colors.darker(getBackground(), 0.1f)));
 
-		final JToolBar toolBar = new BottomToolBar();
-		toolBar.setFloatable(false);
+        final JToolBar toolBar = new BottomToolBar();
+        toolBar.setFloatable(false);
 
-		toolBar.add(UIUtils.createToolBarButton(Registry.get(AddBlockAction.class)));
-		toolBar.add(UIUtils.createToolBarButton(Registry.get(DeleteBlockAction.class)));
-		toolBar.add(UIUtils.createToolBarButton(Registry.get(MoveBlockUpAction.class)));
-		toolBar.add(UIUtils.createToolBarButton(Registry.get(MoveBlockDownAction.class)));
+        toolBar.add(UIUtils.createToolBarButton(Registry.get(AddBlockAction.class)));
+        toolBar.add(UIUtils.createToolBarButton(Registry.get(DeleteBlockAction.class)));
+        toolBar.add(UIUtils.createToolBarButton(Registry.get(MoveBlockUpAction.class)));
+        toolBar.add(UIUtils.createToolBarButton(Registry.get(MoveBlockDownAction.class)));
 
-		add(listScrollPane, BorderLayout.CENTER);
-		add(toolBar, BorderLayout.SOUTH);
-	}
+        add(listScrollPane, BorderLayout.CENTER);
+        add(toolBar, BorderLayout.SOUTH);
+    }
 
-	public void handleEvent(ProjectSwitchedEvent event)
-	{
-		Project project = projectAdapter.getProject();
+    public void handleEvent(ProjectSwitchedEvent event)
+    {
+        Project project = projectAdapter.getProject();
 
-		blockList.setEnabled(project != null);
-		blockList.clearSelection();
-	}
+        blockList.setEnabled(project != null);
+        blockList.clearSelection();
+    }
 
-	public void handleEvent(BlockSwitchedEvent event)
-	{
-		blockList.setSelectedValue(blockAdapter.getBlock(), true);
-	}
+    public void handleEvent(BlockSwitchedEvent event)
+    {
+        blockList.setSelectedValue(blockAdapter.getBlock(), true);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see javax.swing.event.ListSelectionListener#valueChanged(javax.swing.event.ListSelectionEvent)
-	 */
-	@Override
-	public void valueChanged(ListSelectionEvent event)
-	{
-		blockAdapter.setBlock(blockList.getSelectedValue());
-	}
+    /**
+     * {@inheritDoc}
+     *
+     * @see javax.swing.event.ListSelectionListener#valueChanged(javax.swing.event.ListSelectionEvent)
+     */
+    @Override
+    public void valueChanged(ListSelectionEvent event)
+    {
+        blockAdapter.setBlock(blockList.getSelectedValue());
+    }
 
 }

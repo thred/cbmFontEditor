@@ -14,39 +14,39 @@ import org.cbm.editor.font.ui.block.select.SelectionLayer;
 public class FontListPanelController
 {
 
-	private final ProjectAdapter projectAdapter;
-	private final FontAdapter fontAdapter;
-	private final BlockPanelController blockPanelController;
-	private final FontListPanel view;
+    private final ProjectAdapter projectAdapter;
+    private final FontAdapter fontAdapter;
+    private final BlockPanelController blockPanelController;
+    private final FontListPanel view;
 
-	public FontListPanelController()
-	{
-		super();
+    public FontListPanelController()
+    {
+        super();
 
-		projectAdapter = Registry.get(ProjectAdapter.class);
-		projectAdapter.bind(this);
+        projectAdapter = Registry.get(ProjectAdapter.class);
+        projectAdapter.bind(this);
 
-		fontAdapter = Registry.get(FontAdapter.class);
-		fontAdapter.bind(this);
+        fontAdapter = Registry.get(FontAdapter.class);
+        fontAdapter.bind(this);
 
-		blockPanelController = new BlockPanelController();
-		blockPanelController.setHighlightLayer(new FontHighlightLayer());
-		blockPanelController.setDropLayer(new FontDropLayer());
-		blockPanelController.setSelectionLayer(new SelectionLayer(8));
-		blockPanelController.setRootLayer(new FontBlockLayer());
-		blockPanelController.setPopupMenu(Registry.get(FontListMenu.class));
+        blockPanelController = new BlockPanelController();
+        blockPanelController.setHighlightLayer(new FontHighlightLayer());
+        blockPanelController.setDropLayer(new FontDropLayer());
+        blockPanelController.setSelectionLayer(new SelectionLayer(8));
+        blockPanelController.setRootLayer(new FontBlockLayer());
+        blockPanelController.setPopupMenu(Registry.get(FontListMenu.class));
 
-		view = new FontListPanel(blockPanelController.getView());
-	}
+        view = new FontListPanel(blockPanelController.getView());
+    }
 
-	public JPanel getView()
-	{
-		return view;
-	}
+    public JPanel getView()
+    {
+        return view;
+    }
 
-	public BlockPanelController getBlockPanelController()
-	{
-		return blockPanelController;
-	}
+    public BlockPanelController getBlockPanelController()
+    {
+        return blockPanelController;
+    }
 
 }

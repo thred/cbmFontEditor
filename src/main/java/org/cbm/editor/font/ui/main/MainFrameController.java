@@ -13,61 +13,61 @@ import org.cbm.editor.font.model.events.ProjectEvent;
 public class MainFrameController
 {
 
-	private final ProjectAdapter projectAdapter;
-	private final MainFrame view;
+    private final ProjectAdapter projectAdapter;
+    private final MainFrame view;
 
-	public MainFrameController()
-	{
-		super();
+    public MainFrameController()
+    {
+        super();
 
-		projectAdapter = Registry.get(ProjectAdapter.class);
-		projectAdapter.bind(this);
+        projectAdapter = Registry.get(ProjectAdapter.class);
+        projectAdapter.bind(this);
 
-		view = new MainFrame();
+        view = new MainFrame();
 
-		updateState();
+        updateState();
 
-		view.addWindowListener(new WindowAdapter()
-		{
+        view.addWindowListener(new WindowAdapter()
+        {
 
-			@Override
-			public void windowClosing(final WindowEvent e)
-			{
-				System.exit(0);
-			}
+            @Override
+            public void windowClosing(final WindowEvent e)
+            {
+                System.exit(0);
+            }
 
-		});
-	}
+        });
+    }
 
-	public JFrame getView()
-	{
-		return view;
-	}
+    public JFrame getView()
+    {
+        return view;
+    }
 
-	public void handleEvent(final ProjectEvent event)
-	{
-		updateState();
-	}
+    public void handleEvent(final ProjectEvent event)
+    {
+        updateState();
+    }
 
-	private void updateState()
-	{
-		Project project = projectAdapter.getProject();
+    private void updateState()
+    {
+        Project project = projectAdapter.getProject();
 
-		if (project == null)
-		{
-			view.setTitle("CBM Font Editor");
+        if (project == null)
+        {
+            view.setTitle("CBM Font Editor");
 
-			return;
-		}
+            return;
+        }
 
-		String filename = (project.getFile() != null) ? project.getFile().toString() : "unnamed";
+        String filename = project.getFile() != null ? project.getFile().toString() : "unnamed";
 
-		if (project.isModified())
-		{
-			filename += "*";
-		}
+        if (project.isModified())
+        {
+            filename += "*";
+        }
 
-		view.setTitle("CBM Font Editor - " + filename);
-	}
+        view.setTitle("CBM Font Editor - " + filename);
+    }
 
 }

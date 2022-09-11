@@ -10,54 +10,54 @@ import org.cbm.editor.font.model.events.ProjectEvent;
 public class StatusBarController
 {
 
-	private final ProjectAdapter projectAdapter;
-	private final StatusBar view;
+    private final ProjectAdapter projectAdapter;
+    private final StatusBar view;
 
-	public StatusBarController()
-	{
-		super();
+    public StatusBarController()
+    {
+        super();
 
-		projectAdapter = Registry.get(ProjectAdapter.class);
-		projectAdapter.bind(this);
+        projectAdapter = Registry.get(ProjectAdapter.class);
+        projectAdapter.bind(this);
 
-		view = new StatusBar();
+        view = new StatusBar();
 
-		updateState();
-	}
+        updateState();
+    }
 
-	public JComponent getView()
-	{
-		return view;
-	}
+    public JComponent getView()
+    {
+        return view;
+    }
 
-	public void setMessage(final String message)
-	{
-		view.setMessage(message);
-	}
+    public void setMessage(final String message)
+    {
+        view.setMessage(message);
+    }
 
-	public void handleEvent(final ProjectEvent event)
-	{
-		updateState();
-	}
+    public void handleEvent(final ProjectEvent event)
+    {
+        updateState();
+    }
 
-	private void updateState()
-	{
-		Project project = projectAdapter.getProject();
+    private void updateState()
+    {
+        Project project = projectAdapter.getProject();
 
-		if (project == null)
-		{
-			view.setFile("");
-			return;
-		}
+        if (project == null)
+        {
+            view.setFile("");
+            return;
+        }
 
-		String file = (project.getFile() != null) ? project.getFile().toString() : "unnamed";
+        String file = project.getFile() != null ? project.getFile().toString() : "unnamed";
 
-		if (project.isModified())
-		{
-			file = file + " (modified)";
-		}
+        if (project.isModified())
+        {
+            file = file + " (modified)";
+        }
 
-		view.setFile("File: " + file);
-	}
+        view.setFile("File: " + file);
+    }
 
 }

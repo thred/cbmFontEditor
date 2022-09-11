@@ -5,18 +5,18 @@ import org.cbm.editor.font.model.Font;
 public class FontSwitchedEvent extends FontEvent
 {
 
-	private final Font oldFont;
+    private final Font oldFont;
 
-	public FontSwitchedEvent(final Font oldFont, final Font newFont)
-	{
-		super(newFont);
+    public FontSwitchedEvent(final Font oldFont, final Font newFont)
+    {
+        super(newFont);
 
-		this.oldFont = oldFont;
-	}
+        this.oldFont = oldFont;
+    }
 
-	public Font getOldFont()
-	{
-		return oldFont;
-	}
+    public Font getOldFont()
+    {
+        return oldFont;
+    }
 
 }

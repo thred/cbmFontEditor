@@ -14,34 +14,34 @@ import org.cbm.editor.font.util.UIUtils;
 public class ExitAction extends AbstractAction
 {
 
-	private static final long serialVersionUID = 7643768206946134026L;
+    private static final long serialVersionUID = 7643768206946134026L;
 
-	public ExitAction()
-	{
-		super("Exit");
+    public ExitAction()
+    {
+        super("Exit");
 
-		putValue(SHORT_DESCRIPTION, "Quits the CBM Font Editor");
-		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("alt F4"));
-	}
+        putValue(SHORT_DESCRIPTION, "Quits the CBM Font Editor");
+        putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("alt F4"));
+    }
 
-	/**
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
-	@Override
-	public void actionPerformed(final ActionEvent e)
-	{
-		Project project = Registry.get(ProjectAdapter.class).getProject();
+    /**
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
+    @Override
+    public void actionPerformed(final ActionEvent e)
+    {
+        Project project = Registry.get(ProjectAdapter.class).getProject();
 
-		if ((project != null) && (project.isModified()))
-		{
-			if (!UIUtils.confirm(Registry.get(MainFrameController.class).getView(), "Exit",
-					"You have unsaved changes. Do you really want to exit the application?"))
-			{
-				return;
-			}
-		}
+        if (project != null && project.isModified())
+        {
+            if (!UIUtils.confirm(Registry.get(MainFrameController.class).getView(), "Exit",
+                "You have unsaved changes. Do you really want to exit the application?"))
+            {
+                return;
+            }
+        }
 
-		System.exit(0);
-	}
+        System.exit(0);
+    }
 
 }

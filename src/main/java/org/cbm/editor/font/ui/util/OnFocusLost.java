@@ -14,6 +14,6 @@ import java.lang.annotation.Target;
 public @interface OnFocusLost
 {
 
-	String value() default "";
+    String value() default "";
 
 }

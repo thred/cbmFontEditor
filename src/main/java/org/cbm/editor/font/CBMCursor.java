@@ -11,50 +11,50 @@ import javax.imageio.ImageIO;
 public enum CBMCursor
 {
 
-	POINTER("pointerToolCursor.png", 1, 1),
+    POINTER("pointerToolCursor.png", 1, 1),
 
-	SELECTION("selectionToolCursor.png", 1, 1),
+    SELECTION("selectionToolCursor.png", 1, 1),
 
-	DRAW("drawToolCursor.png", 1, 30),
+    DRAW("drawToolCursor.png", 1, 30),
 
-	FILL("fillToolCursor.png", 1, 1),
-	
-	SELECTION_ACCEPT("selectionAcceptCursor.png", 1, 1);
+    FILL("fillToolCursor.png", 1, 1),
 
-	private static final String PREFIX = "org/cbm/editor/";
+    SELECTION_ACCEPT("selectionAcceptCursor.png", 1, 1);
 
-	private final String resource;
-	private final int x;
-	private final int y;
+    private static final String PREFIX = "org/cbm/editor/";
 
-	private Cursor cursor;
+    private final String resource;
+    private final int x;
+    private final int y;
 
-	private CBMCursor(final String resource, final int x, final int y)
-	{
-		this.resource = PREFIX + resource;
-		this.x = x;
-		this.y = y;
-	}
+    private Cursor cursor;
 
-	public Cursor getCursor()
-	{
-		if (cursor == null)
-		{
-			Image image;
+    private CBMCursor(final String resource, final int x, final int y)
+    {
+        this.resource = PREFIX + resource;
+        this.x = x;
+        this.y = y;
+    }
 
-			try
-			{
-				image = ImageIO.read(getClass().getClassLoader().getResource(resource));
-			}
-			catch (final IOException e)
-			{
-				throw new RuntimeException("Failed to load image: " + resource, e);
-			}
+    public Cursor getCursor()
+    {
+        if (cursor == null)
+        {
+            Image image;
 
-			cursor = Toolkit.getDefaultToolkit().createCustomCursor(image, new Point(x, y), name());
-		}
+            try
+            {
+                image = ImageIO.read(getClass().getClassLoader().getResource(resource));
+            }
+            catch (final IOException e)
+            {
+                throw new RuntimeException("Failed to load image: " + resource, e);
+            }
 
-		return cursor;
-	}
+            cursor = Toolkit.getDefaultToolkit().createCustomCursor(image, new Point(x, y), name());
+        }
+
+        return cursor;
+    }
 
 }

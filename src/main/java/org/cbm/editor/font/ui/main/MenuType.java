@@ -1,23 +1,23 @@
 /**
- * 
+ *
  */
 package org.cbm.editor.font.ui.main;
 
 public enum MenuType
 {
 
-	NEW,
+    NEW,
 
-	EXIT,
+    EXIT,
 
-	OPEN,
+    OPEN,
 
-	EDIT,
+    EDIT,
 
-	PREFERENCES,
+    PREFERENCES,
 
-	HELP,
+    HELP,
 
-	ABOUT;
+    ABOUT;
 
 }

@@ -18,97 +18,97 @@ import org.cbm.editor.font.model.events.ProjectSwitchedEvent;
 public abstract class AbstractToolAction extends AbstractAction
 {
 
-	private static final long serialVersionUID = 1577034506977416571L;
+    private static final long serialVersionUID = 1577034506977416571L;
 
-	private final GUIAdapter guiAdapter;
-	private final ProjectAdapter projectAdapter;
-	private final FontAdapter fontAdapter;
-	private final BlockAdapter blockAdapter;
-	private final Tool tool;
+    private final GUIAdapter guiAdapter;
+    private final ProjectAdapter projectAdapter;
+    private final FontAdapter fontAdapter;
+    private final BlockAdapter blockAdapter;
+    private final Tool tool;
 
-	public AbstractToolAction(final Tool tool)
-	{
-		this(tool, null, null);
-	}
+    public AbstractToolAction(final Tool tool)
+    {
+        this(tool, null, null);
+    }
 
-	public AbstractToolAction(final Tool tool, final String name)
-	{
-		this(tool, name, null);
-	}
+    public AbstractToolAction(final Tool tool, final String name)
+    {
+        this(tool, name, null);
+    }
 
-	public AbstractToolAction(final Tool tool, final String name, final javax.swing.Icon icon)
-	{
-		super(name, icon);
+    public AbstractToolAction(final Tool tool, final String name, final javax.swing.Icon icon)
+    {
+        super(name, icon);
 
-		guiAdapter = Registry.get(GUIAdapter.class).bind(this);
-		projectAdapter = Registry.get(ProjectAdapter.class).bind(this);
-		fontAdapter = Registry.get(FontAdapter.class).bind(this);
-		blockAdapter = Registry.get(BlockAdapter.class).bind(this);
+        guiAdapter = Registry.get(GUIAdapter.class).bind(this);
+        projectAdapter = Registry.get(ProjectAdapter.class).bind(this);
+        fontAdapter = Registry.get(FontAdapter.class).bind(this);
+        blockAdapter = Registry.get(BlockAdapter.class).bind(this);
 
-		this.tool = tool;
+        this.tool = tool;
 
-		updateState();
-	}
+        updateState();
+    }
 
-	public void handleEvent(ProjectSwitchedEvent event)
-	{
-		updateState();
-	}
+    public void handleEvent(ProjectSwitchedEvent event)
+    {
+        updateState();
+    }
 
-	public void handleEvent(FontSwitchedEvent event)
-	{
-		updateState();
-	}
+    public void handleEvent(FontSwitchedEvent event)
+    {
+        updateState();
+    }
 
-	public void handleEvent(BlockSwitchedEvent event)
-	{
-		updateState();
-	}
+    public void handleEvent(BlockSwitchedEvent event)
+    {
+        updateState();
+    }
 
-	public void handleEvent(GUIToolEvent event)
-	{
-		updateState();
-	}
+    public void handleEvent(GUIToolEvent event)
+    {
+        updateState();
+    }
 
-	private void updateState()
-	{
-		setEnabled((projectAdapter.getProject() != null)
-				&& ((fontAdapter.getFont() != null) || (blockAdapter.getBlock() != null)));
+    private void updateState()
+    {
+        setEnabled(
+            projectAdapter.getProject() != null && (fontAdapter.getFont() != null || blockAdapter.getBlock() != null));
 
-		setSelected(guiAdapter.getTool() == tool);
-	}
+        setSelected(guiAdapter.getTool() == tool);
+    }
 
-	public Tool getTool()
-	{
-		return tool;
-	}
+    public Tool getTool()
+    {
+        return tool;
+    }
 
-	public boolean isSelected()
-	{
-		return Boolean.TRUE.equals(getValue(SELECTED_KEY));
-	}
+    public boolean isSelected()
+    {
+        return Boolean.TRUE.equals(getValue(SELECTED_KEY));
+    }
 
-	public void setSelected(final boolean selected)
-	{
-		if (isSelected() != selected)
-		{
-			putValue(SELECTED_KEY, selected);
-		}
-	}
+    public void setSelected(final boolean selected)
+    {
+        if (isSelected() != selected)
+        {
+            putValue(SELECTED_KEY, selected);
+        }
+    }
 
-	/**
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
-	@Override
-	public void actionPerformed(final ActionEvent e)
-	{
-		if (guiAdapter.getTool() == tool)
-		{
-			guiAdapter.selectLastTool();
-		}
-		else
-		{
-			guiAdapter.selectTool(tool);
-		}
-	}
+    /**
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
+    @Override
+    public void actionPerformed(final ActionEvent e)
+    {
+        if (guiAdapter.getTool() == tool)
+        {
+            guiAdapter.selectLastTool();
+        }
+        else
+        {
+            guiAdapter.selectTool(tool);
+        }
+    }
 }

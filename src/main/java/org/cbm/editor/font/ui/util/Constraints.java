@@ -6,128 +6,128 @@ import java.awt.Insets;
 public class Constraints extends GridBagConstraints
 {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public Constraints()
-	{
-		super();
+    public Constraints()
+    {
+        super();
 
-		gridx = 1;
-		gridy = 1;
-		gridwidth = 1;
-		gridheight = 1;
-		anchor = GridBagConstraints.WEST;
-		
-		insets = new Insets(2, 4, 2, 4);
-	}
+        gridx = 1;
+        gridy = 1;
+        gridwidth = 1;
+        gridheight = 1;
+        anchor = GridBagConstraints.WEST;
 
-	public Constraints reset()
-	{
-		fill = GridBagConstraints.NONE;
-		anchor = GridBagConstraints.WEST;
-		weightx = 0;
-		weighty = 0;
-		gridwidth = 1;
-		gridheight = 1;
+        insets = new Insets(2, 4, 2, 4);
+    }
 
-		return this;
-	}
+    public Constraints reset()
+    {
+        fill = GridBagConstraints.NONE;
+        anchor = GridBagConstraints.WEST;
+        weightx = 0;
+        weighty = 0;
+        gridwidth = 1;
+        gridheight = 1;
 
-	public Constraints x(final int x)
-	{
-		gridx = x;
+        return this;
+    }
 
-		return reset();
-	}
+    public Constraints x(final int x)
+    {
+        gridx = x;
 
-	public Constraints next()
-	{
-		return x(gridx + gridwidth);
-	}
+        return reset();
+    }
 
-	public Constraints y(final int y)
-	{
-		gridy = y;
+    public Constraints next()
+    {
+        return x(gridx + gridwidth);
+    }
 
-		return reset();
-	}
+    public Constraints y(final int y)
+    {
+        gridy = y;
 
-	public Constraints nextLine()
-	{
-		gridx = 1;
+        return reset();
+    }
 
-		return y(gridy + gridheight);
-	}
+    public Constraints nextLine()
+    {
+        gridx = 1;
 
-	public Constraints width(final int width)
-	{
-		gridwidth = width;
+        return y(gridy + gridheight);
+    }
 
-		return this;
-	}
+    public Constraints width(final int width)
+    {
+        gridwidth = width;
 
-	public Constraints height(final int height)
-	{
-		gridheight = height;
+        return this;
+    }
 
-		return this;
-	}
+    public Constraints height(final int height)
+    {
+        gridheight = height;
 
-	public Constraints right()
-	{
-		anchor = GridBagConstraints.EAST;
+        return this;
+    }
 
-		return this;
-	}
+    public Constraints right()
+    {
+        anchor = GridBagConstraints.EAST;
 
-	public Constraints fill()
-	{
-		fill = GridBagConstraints.BOTH;
+        return this;
+    }
 
-		return this;
-	}
+    public Constraints fill()
+    {
+        fill = GridBagConstraints.BOTH;
 
-	public Constraints fillHorizontal()
-	{
-		fill = GridBagConstraints.HORIZONTAL;
+        return this;
+    }
 
-		return this;
-	}
+    public Constraints fillHorizontal()
+    {
+        fill = GridBagConstraints.HORIZONTAL;
 
-	public Constraints fillVertical()
-	{
-		fill = GridBagConstraints.VERTICAL;
+        return this;
+    }
 
-		return this;
-	}
+    public Constraints fillVertical()
+    {
+        fill = GridBagConstraints.VERTICAL;
 
-	public Constraints alignLeft()
-	{
-		anchor = GridBagConstraints.WEST;
+        return this;
+    }
 
-		return this;
-	}
+    public Constraints alignLeft()
+    {
+        anchor = GridBagConstraints.WEST;
 
-	public Constraints alignRight()
-	{
-		anchor = GridBagConstraints.EAST;
+        return this;
+    }
 
-		return this;
-	}
+    public Constraints alignRight()
+    {
+        anchor = GridBagConstraints.EAST;
 
-	public Constraints weight(final double weightX)
-	{
-		weightx = weightX;
+        return this;
+    }
 
-		return this;
-	}
+    public Constraints weight(final double weightX)
+    {
+        weightx = weightX;
 
-	public Constraints weight(final double weightX, final double weightY)
-	{
-		weightx = weightX;
-		weighty = weightY;
+        return this;
+    }
 
-		return this;
-	}
+    public Constraints weight(final double weightX, final double weightY)
+    {
+        weightx = weightX;
+        weighty = weightY;
+
+        return this;
+    }
 
 }

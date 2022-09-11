@@ -17,52 +17,52 @@ import org.cbm.editor.font.model.events.ProjectSwitchedEvent;
 public class MoveBlockUpAction extends AbstractAction
 {
 
-	private static final long serialVersionUID = -754841748100014203L;
+    private static final long serialVersionUID = -754841748100014203L;
 
-	private final ProjectAdapter projectAdapter;
-	private final BlockAdapter blockAdapter;
+    private final ProjectAdapter projectAdapter;
+    private final BlockAdapter blockAdapter;
 
-	public MoveBlockUpAction()
-	{
-		super("Move Block Up", Icon.UP.getIcon());
+    public MoveBlockUpAction()
+    {
+        super("Move Block Up", Icon.UP.getIcon());
 
-		projectAdapter = Registry.get(ProjectAdapter.class).bind(this);
-		blockAdapter = Registry.get(BlockAdapter.class).bind(this);
+        projectAdapter = Registry.get(ProjectAdapter.class).bind(this);
+        blockAdapter = Registry.get(BlockAdapter.class).bind(this);
 
-		putValue(SHORT_DESCRIPTION, "Moves the selected block up one step");
-		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl UP"));
+        putValue(SHORT_DESCRIPTION, "Moves the selected block up one step");
+        putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl UP"));
 
-		updateState();
-	}
+        updateState();
+    }
 
-	private void updateState()
-	{
-		Block block = blockAdapter.getBlock();
-		Project project = projectAdapter.getProject();
+    private void updateState()
+    {
+        Block block = blockAdapter.getBlock();
+        Project project = projectAdapter.getProject();
 
-		setEnabled((project != null) && (block != null) && (project.indexOfBlock(block) > 0));
-	}
+        setEnabled(project != null && block != null && project.indexOfBlock(block) > 0);
+    }
 
-	public void handleEvent(ProjectSwitchedEvent event)
-	{
-		updateState();
-	}
+    public void handleEvent(ProjectSwitchedEvent event)
+    {
+        updateState();
+    }
 
-	public void handleEvent(BlockSwitchedEvent event)
-	{
-		updateState();
-	}
+    public void handleEvent(BlockSwitchedEvent event)
+    {
+        updateState();
+    }
 
-	/**
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
-	@Override
-	public void actionPerformed(final ActionEvent e)
-	{
-		Block block = blockAdapter.getBlock();
-		int index = projectAdapter.getProject().indexOfBlock(block);
+    /**
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
+    @Override
+    public void actionPerformed(final ActionEvent e)
+    {
+        Block block = blockAdapter.getBlock();
+        int index = projectAdapter.getProject().indexOfBlock(block);
 
-		Registry.execute(new MoveBlockEdit(block, index - 1));
-	}
+        Registry.execute(new MoveBlockEdit(block, index - 1));
+    }
 
 }

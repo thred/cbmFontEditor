@@ -19,71 +19,71 @@ import org.cbm.editor.font.util.UIUtils;
 public class SaveProjectAction extends AbstractAction
 {
 
-	private static final long serialVersionUID = -1527241049347402394L;
+    private static final long serialVersionUID = -1527241049347402394L;
 
-	private final ProjectAdapter projectAdapter;
+    private final ProjectAdapter projectAdapter;
 
-	public SaveProjectAction()
-	{
-		super("Save Project", Icon.SAVE.getIcon());
+    public SaveProjectAction()
+    {
+        super("Save Project", Icon.SAVE.getIcon());
 
-		projectAdapter = Registry.get(ProjectAdapter.class);
-		projectAdapter.bind(this);
+        projectAdapter = Registry.get(ProjectAdapter.class);
+        projectAdapter.bind(this);
 
-		putValue(SHORT_DESCRIPTION, "Saves the project");
-		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl S"));
+        putValue(SHORT_DESCRIPTION, "Saves the project");
+        putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl S"));
 
-		updateState();
-	}
+        updateState();
+    }
 
-	public void handleEvent(ProjectEvent event)
-	{
-		updateState();
-	}
+    public void handleEvent(ProjectEvent event)
+    {
+        updateState();
+    }
 
-	private void updateState()
-	{
-		setEnabled((projectAdapter.getProject() != null) && (projectAdapter.getProject().isModified()));
-	}
+    private void updateState()
+    {
+        setEnabled(projectAdapter.getProject() != null && projectAdapter.getProject().isModified());
+    }
 
-	/**
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
-	@Override
-	public void actionPerformed(final ActionEvent event)
-	{
-		final Project project = projectAdapter.getProject();
+    /**
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
+    @Override
+    public void actionPerformed(final ActionEvent event)
+    {
+        final Project project = projectAdapter.getProject();
 
-		if (project == null)
-		{
-			return;
-		}
+        if (project == null)
+        {
+            return;
+        }
 
-		final File file = project.getFile();
+        final File file = project.getFile();
 
-		if (file == null)
-		{
-			Registry.get(SaveProjectAsAction.class).actionPerformed(event);
+        if (file == null)
+        {
+            Registry.get(SaveProjectAsAction.class).actionPerformed(event);
 
-			return;
-		}
+            return;
+        }
 
-		try
-		{
-			project.exportProject(file);
-			Registry.get(OpenRecentProject.class).recent(file);
+        try
+        {
+            project.exportProject(file);
+            Registry.get(OpenRecentProject.class).recent(file);
 
-			project.setFile(file);
-			project.setModified(false);
-			Registry.get(StatusBarController.class).setMessage("Project saved: " + file);
-		}
-		catch (final Exception e)
-		{
-			e.printStackTrace(System.err);
+            project.setFile(file);
+            project.setModified(false);
+            Registry.get(StatusBarController.class).setMessage("Project saved: " + file);
+        }
+        catch (final Exception e)
+        {
+            e.printStackTrace(System.err);
 
-			UIUtils.error(Registry.get(MainFrameController.class).getView(), "Save Project", "Failed to write file \""
-					+ file + "\".");
-		}
-	}
+            UIUtils.error(Registry.get(MainFrameController.class).getView(), "Save Project",
+                "Failed to write file \"" + file + "\".");
+        }
+    }
 
 }

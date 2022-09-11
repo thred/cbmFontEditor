@@ -19,44 +19,44 @@ import org.cbm.editor.font.ui.block.BlockComponent;
 public class CopyAction extends AbstractAction implements PropertyChangeListener
 {
 
-	private static final long serialVersionUID = 2323624444536801108L;
+    private static final long serialVersionUID = 2323624444536801108L;
 
-	private JComponent component;
+    private JComponent component;
 
-	public CopyAction()
-	{
-		super("Copy", Icon.COPY.getIcon());
+    public CopyAction()
+    {
+        super("Copy", Icon.COPY.getIcon());
 
-		putValue(SHORT_DESCRIPTION, "Copies the selection");
-		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl C"));
+        putValue(SHORT_DESCRIPTION, "Copies the selection");
+        putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl C"));
 
-		KeyboardFocusManager.getCurrentKeyboardFocusManager().addPropertyChangeListener("focusOwner", this);
-	}
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addPropertyChangeListener("focusOwner", this);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
-	 */
-	@Override
-	public void propertyChange(PropertyChangeEvent evt)
-	{
-		Component focusOwner = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
+    /**
+     * {@inheritDoc}
+     *
+     * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
+     */
+    @Override
+    public void propertyChange(PropertyChangeEvent evt)
+    {
+        Component focusOwner = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
 
-		if ((focusOwner instanceof JTextField) || (focusOwner instanceof BlockComponent))
-		{
-			component = (JComponent) focusOwner;
-		}
-	}
+        if (focusOwner instanceof JTextField || focusOwner instanceof BlockComponent)
+        {
+            component = (JComponent) focusOwner;
+        }
+    }
 
-	/**
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
-	@Override
-	public void actionPerformed(ActionEvent e)
-	{
-		component.getTransferHandler().exportToClipboard(component, Toolkit.getDefaultToolkit().getSystemClipboard(),
-				TransferHandler.COPY);
-	}
+    /**
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        component.getTransferHandler().exportToClipboard(component, Toolkit.getDefaultToolkit().getSystemClipboard(),
+            TransferHandler.COPY);
+    }
 
 }

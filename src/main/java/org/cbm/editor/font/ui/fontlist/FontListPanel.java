@@ -30,129 +30,129 @@ import org.cbm.editor.font.util.UIUtils;
 public class FontListPanel extends JPanel implements ActionListener, FocusListener
 {
 
-	private static final long serialVersionUID = -7525044265060335116L;
+    private static final long serialVersionUID = -7525044265060335116L;
 
-	private final ProjectAdapter projectAdapter;
-	private final FontAdapter fontAdapter;
-	private final FontListComponent fontList;
-	private final JSplitPane splitPane;
-	private final JTextField nameField;
+    private final ProjectAdapter projectAdapter;
+    private final FontAdapter fontAdapter;
+    private final FontListComponent fontList;
+    private final JSplitPane splitPane;
+    private final JTextField nameField;
 
-	public FontListPanel(JPanel blockPanel)
-	{
-		super(new BorderLayout());
+    public FontListPanel(JPanel blockPanel)
+    {
+        super(new BorderLayout());
 
-		projectAdapter = Registry.get(ProjectAdapter.class).bind(this);
-		fontAdapter = Registry.get(FontAdapter.class).bind(this);
+        projectAdapter = Registry.get(ProjectAdapter.class).bind(this);
+        fontAdapter = Registry.get(FontAdapter.class).bind(this);
 
-		//		setOpaque(false);
+        //		setOpaque(false);
 
-		fontList = Registry.get(FontListComponent.class);
+        fontList = Registry.get(FontListComponent.class);
 
-		nameField = new JTextField();
-		nameField.addActionListener(this);
-		nameField.addFocusListener(this);
-		nameField.setEnabled(false);
+        nameField = new JTextField();
+        nameField.addActionListener(this);
+        nameField.addFocusListener(this);
+        nameField.setEnabled(false);
 
-		final JPanel outer = new JPanel(new BorderLayout());
-		final JPanel header = new LoweredPanel(new GridBagLayout());
+        final JPanel outer = new JPanel(new BorderLayout());
+        final JPanel header = new LoweredPanel(new GridBagLayout());
 
-		final Constraints c = new Constraints();
-		header.add(UIUtils.createToolBarButton(Registry.get(PreviousFontAction.class)), c);
-		//		header.add(UIUtils.createLabel("Name of Font:"), c.next());
-		header.add(nameField, c.next().weight(1).fillHorizontal());
-		header.add(UIUtils.createToolBarButton(Registry.get(NextFontAction.class)), c.next());
+        final Constraints c = new Constraints();
+        header.add(UIUtils.createToolBarButton(Registry.get(PreviousFontAction.class)), c);
+        //		header.add(UIUtils.createLabel("Name of Font:"), c.next());
+        header.add(nameField, c.next().weight(1).fillHorizontal());
+        header.add(UIUtils.createToolBarButton(Registry.get(NextFontAction.class)), c.next());
 
-		outer.add(header, BorderLayout.NORTH);
-		outer.add(blockPanel, BorderLayout.CENTER);
+        outer.add(header, BorderLayout.NORTH);
+        outer.add(blockPanel, BorderLayout.CENTER);
 
-		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-		splitPane.setLeftComponent(outer);
-		splitPane.setRightComponent(fontList);
-		splitPane.setBorder(null);
-		//		splitPane.setOneTouchExpandable(true);
-		splitPane.setResizeWeight(0.5);
+        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        splitPane.setLeftComponent(outer);
+        splitPane.setRightComponent(fontList);
+        splitPane.setBorder(null);
+        //		splitPane.setOneTouchExpandable(true);
+        splitPane.setResizeWeight(0.5);
 
-		add(splitPane, BorderLayout.CENTER);
+        add(splitPane, BorderLayout.CENTER);
 
-		UIUtils.persistentSplit("fontListSplit", splitPane, 240);
+        UIUtils.persistentSplit("fontListSplit", splitPane, 240);
 
-		updateState();
-	}
+        updateState();
+    }
 
-	private void updateState()
-	{
-		Project project = projectAdapter.getProject();
-		Font font = fontAdapter.getFont();
+    private void updateState()
+    {
+        Project project = projectAdapter.getProject();
+        Font font = fontAdapter.getFont();
 
-		nameField.setEnabled((project != null) && (font != null));
+        nameField.setEnabled(project != null && font != null);
 
-		if ((project != null) && (font != null))
-		{
-			nameField.setText(font.getName());
-		}
-		else
-		{
-			nameField.setText("");
-		}
-	}
+        if (project != null && font != null)
+        {
+            nameField.setText(font.getName());
+        }
+        else
+        {
+            nameField.setText("");
+        }
+    }
 
-	public void handleEvent(ProjectEvent event)
-	{
-		updateState();
-	}
+    public void handleEvent(ProjectEvent event)
+    {
+        updateState();
+    }
 
-	public void handleEvent(FontSwitchedEvent event)
-	{
-		updateState();
-	}
+    public void handleEvent(FontSwitchedEvent event)
+    {
+        updateState();
+    }
 
-	public void handleEvent(FontPropertyModifiedEvent event)
-	{
-		updateState();
-	}
+    public void handleEvent(FontPropertyModifiedEvent event)
+    {
+        updateState();
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see java.awt.event.FocusListener#focusGained(java.awt.event.FocusEvent)
-	 */
-	@Override
-	public void focusGained(FocusEvent e)
-	{
-		// intentionally left blank
-	}
+    /**
+     * {@inheritDoc}
+     *
+     * @see java.awt.event.FocusListener#focusGained(java.awt.event.FocusEvent)
+     */
+    @Override
+    public void focusGained(FocusEvent e)
+    {
+        // intentionally left blank
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see java.awt.event.FocusListener#focusLost(java.awt.event.FocusEvent)
-	 */
-	@Override
-	public void focusLost(FocusEvent e)
-	{
-		updateState();
-	}
+    /**
+     * {@inheritDoc}
+     *
+     * @see java.awt.event.FocusListener#focusLost(java.awt.event.FocusEvent)
+     */
+    @Override
+    public void focusLost(FocusEvent e)
+    {
+        updateState();
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
-	@Override
-	public void actionPerformed(ActionEvent e)
-	{
-		Font font = fontAdapter.getFont();
+    /**
+     * {@inheritDoc}
+     *
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        Font font = fontAdapter.getFont();
 
-		if (font == null)
-		{
-			return;
-		}
+        if (font == null)
+        {
+            return;
+        }
 
-		if (!Objects.equals(nameField.getText(), font.getName()))
-		{
-			Registry.execute(new FontNameEdit(font, nameField.getText()));
-		}
-	}
+        if (!Objects.equals(nameField.getText(), font.getName()))
+        {
+            Registry.execute(new FontNameEdit(font, nameField.getText()));
+        }
+    }
 
 }

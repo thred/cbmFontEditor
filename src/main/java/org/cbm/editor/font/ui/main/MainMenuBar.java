@@ -46,76 +46,76 @@ import org.cbm.editor.font.util.UIUtils;
 class MainMenuBar extends JMenuBar
 {
 
-	private static final long serialVersionUID = 3705783952058650018L;
+    private static final long serialVersionUID = 3705783952058650018L;
 
-	public MainMenuBar()
-	{
-		super();
+    public MainMenuBar()
+    {
+        super();
 
-		final JMenu file = UIUtils.createMenu("File", KeyEvent.VK_F);
-		file.add(Registry.get(NewProjectAction.class));
-		file.add(Registry.get(OpenProjectAction.class));
-		file.add(Registry.get(SaveProjectAction.class));
-		file.add(Registry.get(SaveProjectAsAction.class));
-		file.add(Registry.get(CloseProjectAction.class));
-		file.addSeparator();
-		file.add(Registry.get(VideoEmulationSetttingsAction.class));
-		file.addSeparator();
-		Registry.get(OpenRecentProject.class).init(file);
-		file.addSeparator();
-		file.add(Registry.get(ExitAction.class));
-		add(file);
+        final JMenu file = UIUtils.createMenu("File", KeyEvent.VK_F);
+        file.add(Registry.get(NewProjectAction.class));
+        file.add(Registry.get(OpenProjectAction.class));
+        file.add(Registry.get(SaveProjectAction.class));
+        file.add(Registry.get(SaveProjectAsAction.class));
+        file.add(Registry.get(CloseProjectAction.class));
+        file.addSeparator();
+        file.add(Registry.get(VideoEmulationSetttingsAction.class));
+        file.addSeparator();
+        Registry.get(OpenRecentProject.class).init(file);
+        file.addSeparator();
+        file.add(Registry.get(ExitAction.class));
+        add(file);
 
-		final JMenu edit = UIUtils.createMenu("Edit", KeyEvent.VK_E);
-		edit.add(Registry.get(UndoAction.class));
-		edit.add(Registry.get(RedoAction.class));
-		edit.addSeparator();
-		edit.add(Registry.get(CutAction.class));
-		edit.add(Registry.get(CopyAction.class));
-		edit.add(Registry.get(PasteAction.class));
-		edit.addSeparator();
-		edit.add(new JCheckBoxMenuItem(Registry.get(PointerToolAction.class)));
-		edit.add(new JCheckBoxMenuItem(Registry.get(SelectionToolAction.class)));
-		edit.add(new JCheckBoxMenuItem(Registry.get(DrawToolAction.class)));
-		edit.add(new JCheckBoxMenuItem(Registry.get(FillToolAction.class)));
-		edit.addSeparator();
-		edit.add(new JCheckBoxMenuItem(Registry.get(AcceptSelectionAction.class)));
-		edit.add(new JCheckBoxMenuItem(Registry.get(DismissSelectionAction.class)));
-		edit.add(new JCheckBoxMenuItem(Registry.get(ClearSelectionAction.class)));
-		add(edit);
+        final JMenu edit = UIUtils.createMenu("Edit", KeyEvent.VK_E);
+        edit.add(Registry.get(UndoAction.class));
+        edit.add(Registry.get(RedoAction.class));
+        edit.addSeparator();
+        edit.add(Registry.get(CutAction.class));
+        edit.add(Registry.get(CopyAction.class));
+        edit.add(Registry.get(PasteAction.class));
+        edit.addSeparator();
+        edit.add(new JCheckBoxMenuItem(Registry.get(PointerToolAction.class)));
+        edit.add(new JCheckBoxMenuItem(Registry.get(SelectionToolAction.class)));
+        edit.add(new JCheckBoxMenuItem(Registry.get(DrawToolAction.class)));
+        edit.add(new JCheckBoxMenuItem(Registry.get(FillToolAction.class)));
+        edit.addSeparator();
+        edit.add(new JCheckBoxMenuItem(Registry.get(AcceptSelectionAction.class)));
+        edit.add(new JCheckBoxMenuItem(Registry.get(DismissSelectionAction.class)));
+        edit.add(new JCheckBoxMenuItem(Registry.get(ClearSelectionAction.class)));
+        add(edit);
 
-		final JMenu font = UIUtils.createMenu("Font", KeyEvent.VK_B);
-		font.add(Registry.get(AddFontAction.class));
-		font.add(Registry.get(DeleteFontAction.class));
-		font.addSeparator();
-		font.add(Registry.get(MoveFontUpAction.class));
-		font.add(Registry.get(MoveFontDownAction.class));
-		font.addSeparator();
-		font.add(Registry.get(NextFontAction.class));
-		font.add(Registry.get(PreviousFontAction.class));
-		font.addSeparator();
-		font.add(Registry.get(ImportAction.class));
-		font.add(Registry.get(ExportAction.class));
+        final JMenu font = UIUtils.createMenu("Font", KeyEvent.VK_B);
+        font.add(Registry.get(AddFontAction.class));
+        font.add(Registry.get(DeleteFontAction.class));
+        font.addSeparator();
+        font.add(Registry.get(MoveFontUpAction.class));
+        font.add(Registry.get(MoveFontDownAction.class));
+        font.addSeparator();
+        font.add(Registry.get(NextFontAction.class));
+        font.add(Registry.get(PreviousFontAction.class));
+        font.addSeparator();
+        font.add(Registry.get(ImportAction.class));
+        font.add(Registry.get(ExportAction.class));
 
-		add(font);
+        add(font);
 
-		final JMenu block = UIUtils.createMenu("Block", KeyEvent.VK_B);
-		block.add(Registry.get(AddBlockAction.class));
-		block.add(Registry.get(CreateCharacterBlocksAction.class));
-		block.add(Registry.get(DeleteBlockAction.class));
-		block.addSeparator();
-		block.add(Registry.get(MoveBlockUpAction.class));
-		block.add(Registry.get(MoveBlockDownAction.class));
-		block.addSeparator();
-		block.add(Registry.get(NextBlockAction.class));
-		block.add(Registry.get(PreviousBlockAction.class));
+        final JMenu block = UIUtils.createMenu("Block", KeyEvent.VK_B);
+        block.add(Registry.get(AddBlockAction.class));
+        block.add(Registry.get(CreateCharacterBlocksAction.class));
+        block.add(Registry.get(DeleteBlockAction.class));
+        block.addSeparator();
+        block.add(Registry.get(MoveBlockUpAction.class));
+        block.add(Registry.get(MoveBlockDownAction.class));
+        block.addSeparator();
+        block.add(Registry.get(NextBlockAction.class));
+        block.add(Registry.get(PreviousBlockAction.class));
 
-		add(block);
+        add(block);
 
-		final JMenu help = UIUtils.createMenu("Help", KeyEvent.VK_H);
-		add(help);
+        final JMenu help = UIUtils.createMenu("Help", KeyEvent.VK_H);
+        add(help);
 
-		setBorderPainted(false);
-	}
+        setBorderPainted(false);
+    }
 
 }

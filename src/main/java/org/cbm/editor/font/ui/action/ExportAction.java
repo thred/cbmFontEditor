@@ -15,45 +15,45 @@ import org.cbm.editor.font.model.events.ProjectEvent;
 public class ExportAction extends AbstractAction
 {
 
-	private static final long serialVersionUID = 7643768206946134026L;
+    private static final long serialVersionUID = 7643768206946134026L;
 
-	private final ProjectAdapter projectAdapter;
-	private final FontAdapter fontAdapter;
+    private final ProjectAdapter projectAdapter;
+    private final FontAdapter fontAdapter;
 
-	public ExportAction()
-	{
-		super("Export...", Icon.EXPORT.getIcon());
+    public ExportAction()
+    {
+        super("Export...", Icon.EXPORT.getIcon());
 
-		projectAdapter = Registry.get(ProjectAdapter.class).bind(this);
-		fontAdapter = Registry.get(FontAdapter.class).bind(this);
+        projectAdapter = Registry.get(ProjectAdapter.class).bind(this);
+        fontAdapter = Registry.get(FontAdapter.class).bind(this);
 
-		putValue(SHORT_DESCRIPTION, "Export the font to a file");
-		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl shift E"));
+        putValue(SHORT_DESCRIPTION, "Export the font to a file");
+        putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl shift E"));
 
-		updateState();
-	}
+        updateState();
+    }
 
-	public void handleEvent(ProjectEvent event)
-	{
-		updateState();
-	}
+    public void handleEvent(ProjectEvent event)
+    {
+        updateState();
+    }
 
-	public void handleEvent(FontEvent event)
-	{
-		updateState();
-	}
+    public void handleEvent(FontEvent event)
+    {
+        updateState();
+    }
 
-	private void updateState()
-	{
-		setEnabled((projectAdapter.getProject() != null) && (fontAdapter.getFont() != null));
-	}
+    private void updateState()
+    {
+        setEnabled(projectAdapter.getProject() != null && fontAdapter.getFont() != null);
+    }
 
-	/**
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
-	@Override
-	public void actionPerformed(final ActionEvent e)
-	{
-	}
+    /**
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
+    @Override
+    public void actionPerformed(final ActionEvent e)
+    {
+    }
 
 }

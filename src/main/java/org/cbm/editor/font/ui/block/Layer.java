@@ -9,10 +9,10 @@ import org.cbm.editor.font.model.Tool;
 public interface Layer
 {
 
-	void setComponent(BlockComponent component);
+    void setComponent(BlockComponent component);
 
-	Cursor getCursor(Point mousePosition, Tool tool);
+    Cursor getCursor(Point mousePosition, Tool tool);
 
-	void draw(Graphics2D g);
+    void draw(Graphics2D g);
 
 }

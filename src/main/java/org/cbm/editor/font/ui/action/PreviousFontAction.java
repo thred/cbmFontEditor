@@ -17,53 +17,53 @@ import org.cbm.editor.font.model.events.ProjectEvent;
 public class PreviousFontAction extends AbstractAction
 {
 
-	private static final long serialVersionUID = -773527153869372460L;
+    private static final long serialVersionUID = -773527153869372460L;
 
-	private final ProjectAdapter projectAdapter;
-	private final FontAdapter fontAdapter;
+    private final ProjectAdapter projectAdapter;
+    private final FontAdapter fontAdapter;
 
-	public PreviousFontAction()
-	{
-		super("Previous Font", Icon.LEFT.getIcon());
+    public PreviousFontAction()
+    {
+        super("Previous Font", Icon.LEFT.getIcon());
 
-		projectAdapter = Registry.get(ProjectAdapter.class).bind(this);
-		fontAdapter = Registry.get(FontAdapter.class).bind(this);
+        projectAdapter = Registry.get(ProjectAdapter.class).bind(this);
+        fontAdapter = Registry.get(FontAdapter.class).bind(this);
 
-		putValue(SHORT_DESCRIPTION, "Switches to the previous font");
-		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl shift LEFT"));
+        putValue(SHORT_DESCRIPTION, "Switches to the previous font");
+        putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl shift LEFT"));
 
-		updateState();
-	}
+        updateState();
+    }
 
-	public void handleEvent(ProjectEvent event)
-	{
-		updateState();
-	}
+    public void handleEvent(ProjectEvent event)
+    {
+        updateState();
+    }
 
-	public void handleEvent(FontEvent event)
-	{
-		updateState();
-	}
+    public void handleEvent(FontEvent event)
+    {
+        updateState();
+    }
 
-	public void updateState()
-	{
-		Project project = projectAdapter.getProject();
-		Font font = fontAdapter.getFont();
+    public void updateState()
+    {
+        Project project = projectAdapter.getProject();
+        Font font = fontAdapter.getFont();
 
-		setEnabled((project != null) && (font != null) && (project.indexOfFont(font) > 0));
-	}
+        setEnabled(project != null && font != null && project.indexOfFont(font) > 0);
+    }
 
-	/**
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
-	@Override
-	public void actionPerformed(final ActionEvent e)
-	{
-		Project project = projectAdapter.getProject();
-		Font font = fontAdapter.getFont();
-		int index = project.indexOfFont(font);
+    /**
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
+    @Override
+    public void actionPerformed(final ActionEvent e)
+    {
+        Project project = projectAdapter.getProject();
+        Font font = fontAdapter.getFont();
+        int index = project.indexOfFont(font);
 
-		fontAdapter.setFont(project.getFont(index - 1));
-	}
+        fontAdapter.setFont(project.getFont(index - 1));
+    }
 
 }

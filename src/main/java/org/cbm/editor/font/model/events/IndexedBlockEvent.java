@@ -5,18 +5,18 @@ import org.cbm.editor.font.model.Block;
 public class IndexedBlockEvent extends BlockEvent
 {
 
-	private final int index;
+    private final int index;
 
-	public IndexedBlockEvent(Block block, int index)
-	{
-		super(block);
+    public IndexedBlockEvent(Block block, int index)
+    {
+        super(block);
 
-		this.index = index;
-	}
+        this.index = index;
+    }
 
-	public int getIndex()
-	{
-		return index;
-	}
+    public int getIndex()
+    {
+        return index;
+    }
 
 }

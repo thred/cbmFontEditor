@@ -5,18 +5,18 @@ import org.cbm.editor.font.model.Tool;
 public class GUIToolEvent extends GUIEvent
 {
 
-	private final Tool tool;
+    private final Tool tool;
 
-	public GUIToolEvent(final Tool tool)
-	{
-		super();
+    public GUIToolEvent(final Tool tool)
+    {
+        super();
 
-		this.tool = tool;
-	}
+        this.tool = tool;
+    }
 
-	public Tool getTool()
-	{
-		return tool;
-	}
+    public Tool getTool()
+    {
+        return tool;
+    }
 
 }

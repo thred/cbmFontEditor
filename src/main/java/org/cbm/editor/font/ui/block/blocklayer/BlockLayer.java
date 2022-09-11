@@ -11,34 +11,34 @@ import org.cbm.editor.font.util.Palette;
 public interface BlockLayer extends Layer
 {
 
-	public Font getFont();
+    public Font getFont();
 
-	public Block getBlock();
+    public Block getBlock();
 
-	public int getXInPixel();
+    public int getXInPixel();
 
-	public int getYInPixel();
+    public int getYInPixel();
 
-	public int getWidthInPixel();
+    public int getWidthInPixel();
 
-	public int getHeightInPixel();
+    public int getHeightInPixel();
 
-	public int getWidthInCharacters();
+    public int getWidthInCharacters();
 
-	public int getHeightInCharacters();
+    public int getHeightInCharacters();
 
-	public int getCharacterWidth();
+    public int getCharacterWidth();
 
-	public int getCharacterHeight();
+    public int getCharacterHeight();
 
-	public boolean isCharacterAvailable(int characterX, int characterY);
+    public boolean isCharacterAvailable(int characterX, int characterY);
 
-	public int getOverscanInPixel();
+    public int getOverscanInPixel();
 
-	public Palette getBackground();
+    public Palette getBackground();
 
-	public void invalidateImage();
+    public void invalidateImage();
 
-	public BlockSelection createBlockSelection(Rectangle rectangle);
+    public BlockSelection createBlockSelection(Rectangle rectangle);
 
 }

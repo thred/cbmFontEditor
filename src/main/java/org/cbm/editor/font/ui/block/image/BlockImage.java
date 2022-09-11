@@ -6,8 +6,8 @@ import java.awt.Point;
 public interface BlockImage
 {
 
-	void draw(Graphics2D g, Point positionInPixel, double zoom);
+    void draw(Graphics2D g, Point positionInPixel, double zoom);
 
-	void destroy();
+    void destroy();
 
 }

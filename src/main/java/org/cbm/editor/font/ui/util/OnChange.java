@@ -14,6 +14,6 @@ import java.lang.annotation.Target;
 public @interface OnChange
 {
 
-	String value() default "";
+    String value() default "";
 
 }

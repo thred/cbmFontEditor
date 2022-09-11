@@ -8,24 +8,24 @@ import org.cbm.editor.font.ui.block.Layer;
 public interface DropLayer extends Layer
 {
 
-	public BlockSelection getBlockSelection();
+    public BlockSelection getBlockSelection();
 
-	public void setBlockSelection(BlockSelection blockSelection, boolean center);
+    public void setBlockSelection(BlockSelection blockSelection, boolean center);
 
-	public boolean hasBlockSelection();
+    public boolean hasBlockSelection();
 
-	public int getXInPixel();
+    public int getXInPixel();
 
-	public int getYInPixel();
+    public int getYInPixel();
 
-	public int getXInCharacter();
+    public int getXInCharacter();
 
-	public int getYInCharacter();
+    public int getYInCharacter();
 
-	public int getWidthInPixel();
+    public int getWidthInPixel();
 
-	public int getHeightInPixel();
+    public int getHeightInPixel();
 
-	public Rectangle getRectangleInPixel();
+    public Rectangle getRectangleInPixel();
 
 }

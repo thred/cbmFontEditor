@@ -10,49 +10,49 @@ import org.cbm.editor.font.ui.block.image.DefaultBlockImage;
 public class FontDropLayer extends AbstractDropLayer
 {
 
-	private BlockImage image = null;
+    private BlockImage image = null;
 
-	public FontDropLayer()
-	{
-		super(8);
-	}
+    public FontDropLayer()
+    {
+        super(8);
+    }
 
-	@Override
-	public void setBlockSelection(BlockSelection blockSelection, boolean center)
-	{
-		image = null;
+    @Override
+    public void setBlockSelection(BlockSelection blockSelection, boolean center)
+    {
+        image = null;
 
-		super.setBlockSelection(blockSelection, center);
-	}
+        super.setBlockSelection(blockSelection, center);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.cbm.editor.font.ui.block.Layer#draw(java.awt.Graphics2D)
-	 */
-	@Override
-	public void draw(Graphics2D g)
-	{
-		BlockSelection blockSelection = getBlockSelection();
+    /**
+     * {@inheritDoc}
+     *
+     * @see org.cbm.editor.font.ui.block.Layer#draw(java.awt.Graphics2D)
+     */
+    @Override
+    public void draw(Graphics2D g)
+    {
+        BlockSelection blockSelection = getBlockSelection();
 
-		if (blockSelection == null)
-		{
-			return;
-		}
+        if (blockSelection == null)
+        {
+            return;
+        }
 
-		double zoom = getComponent().getZoom();
+        double zoom = getComponent().getZoom();
 
-		BlockImage currentImage = image;
+        BlockImage currentImage = image;
 
-		if (currentImage == null)
-		{
-			currentImage = new DefaultBlockImage(blockSelection.getFont(), blockSelection.getBlock());
-			image = currentImage;
-		}
+        if (currentImage == null)
+        {
+            currentImage = new DefaultBlockImage(blockSelection.getFont(), blockSelection.getBlock());
+            image = currentImage;
+        }
 
-		currentImage.draw(g, new Point(getXInPixel(), getYInPixel()), zoom);
-		
-		super.draw(g);
-	}
+        currentImage.draw(g, new Point(getXInPixel(), getYInPixel()), zoom);
+
+        super.draw(g);
+    }
 
 }

@@ -30,64 +30,64 @@ import org.cbm.editor.font.util.UIUtils;
 public class FontListComponent extends JPanel implements ListSelectionListener
 {
 
-	private static final long serialVersionUID = -2351694771933229775L;
+    private static final long serialVersionUID = -2351694771933229775L;
 
-	private final ProjectAdapter projectAdapter;
-	private final FontAdapter fontAdapter;
-	private final JScrollPane listScrollPane;
-	private final JList<Font> fontList;
+    private final ProjectAdapter projectAdapter;
+    private final FontAdapter fontAdapter;
+    private final JScrollPane listScrollPane;
+    private final JList<Font> fontList;
 
-	public FontListComponent()
-	{
-		super(new BorderLayout());
+    public FontListComponent()
+    {
+        super(new BorderLayout());
 
-		projectAdapter = Registry.get(ProjectAdapter.class).bind(this);
-		fontAdapter = Registry.get(FontAdapter.class).bind(this);
+        projectAdapter = Registry.get(ProjectAdapter.class).bind(this);
+        fontAdapter = Registry.get(FontAdapter.class).bind(this);
 
-		setOpaque(false);
+        setOpaque(false);
 
-		fontList = new JList<Font>(Registry.get(FontListModel.class));
-		fontList.addListSelectionListener(this);
-		fontList.setFocusable(false);
-		fontList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        fontList = new JList<>(Registry.get(FontListModel.class));
+        fontList.addListSelectionListener(this);
+        fontList.setFocusable(false);
+        fontList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-		listScrollPane = new FocusableJScrollPane(fontList);
-		listScrollPane.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Colors.darker(getBackground(), 0.1f)));
+        listScrollPane = new FocusableJScrollPane(fontList);
+        listScrollPane.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Colors.darker(getBackground(), 0.1f)));
 
-		final JToolBar toolBar = new BottomToolBar();
-		toolBar.setFloatable(false);
+        final JToolBar toolBar = new BottomToolBar();
+        toolBar.setFloatable(false);
 
-		toolBar.add(UIUtils.createToolBarButton(Registry.get(AddFontAction.class)));
-		toolBar.add(UIUtils.createToolBarButton(Registry.get(DeleteFontAction.class)));
-		toolBar.add(UIUtils.createToolBarButton(Registry.get(MoveFontUpAction.class)));
-		toolBar.add(UIUtils.createToolBarButton(Registry.get(MoveFontDownAction.class)));
+        toolBar.add(UIUtils.createToolBarButton(Registry.get(AddFontAction.class)));
+        toolBar.add(UIUtils.createToolBarButton(Registry.get(DeleteFontAction.class)));
+        toolBar.add(UIUtils.createToolBarButton(Registry.get(MoveFontUpAction.class)));
+        toolBar.add(UIUtils.createToolBarButton(Registry.get(MoveFontDownAction.class)));
 
-		add(listScrollPane, BorderLayout.CENTER);
-		add(toolBar, BorderLayout.SOUTH);
-	}
+        add(listScrollPane, BorderLayout.CENTER);
+        add(toolBar, BorderLayout.SOUTH);
+    }
 
-	public void handleEvent(ProjectSwitchedEvent event)
-	{
-		Project project = projectAdapter.getProject();
+    public void handleEvent(ProjectSwitchedEvent event)
+    {
+        Project project = projectAdapter.getProject();
 
-		fontList.setEnabled(project != null);
-		fontList.clearSelection();
-	}
+        fontList.setEnabled(project != null);
+        fontList.clearSelection();
+    }
 
-	public void handleEvent(FontSwitchedEvent event)
-	{
-		fontList.setSelectedValue(fontAdapter.getFont(), true);
-	}
+    public void handleEvent(FontSwitchedEvent event)
+    {
+        fontList.setSelectedValue(fontAdapter.getFont(), true);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see javax.swing.event.ListSelectionListener#valueChanged(javax.swing.event.ListSelectionEvent)
-	 */
-	@Override
-	public void valueChanged(ListSelectionEvent event)
-	{
-		fontAdapter.setFont(fontList.getSelectedValue());
-	}
+    /**
+     * {@inheritDoc}
+     *
+     * @see javax.swing.event.ListSelectionListener#valueChanged(javax.swing.event.ListSelectionEvent)
+     */
+    @Override
+    public void valueChanged(ListSelectionEvent event)
+    {
+        fontAdapter.setFont(fontList.getSelectedValue());
+    }
 
 }

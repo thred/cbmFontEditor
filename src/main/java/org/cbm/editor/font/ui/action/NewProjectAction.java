@@ -16,40 +16,39 @@ import org.cbm.editor.font.util.UIUtils;
 public class NewProjectAction extends AbstractAction
 {
 
-	private static final long serialVersionUID = 7643768206946134026L;
+    private static final long serialVersionUID = 7643768206946134026L;
 
-	public NewProjectAction()
-	{
-		super("New Project", Icon.NEW.getIcon());
+    public NewProjectAction()
+    {
+        super("New Project", Icon.NEW.getIcon());
 
-		putValue(SHORT_DESCRIPTION, "Creates a new empty project");
-		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl N"));
-	}
+        putValue(SHORT_DESCRIPTION, "Creates a new empty project");
+        putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke("ctrl N"));
+    }
 
-	/**
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
-	@Override
-	public void actionPerformed(final ActionEvent e)
-	{
-		ProjectAdapter projectAdapter = Registry.get(ProjectAdapter.class);
-		Project project = projectAdapter.getProject();
+    /**
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
+    @Override
+    public void actionPerformed(final ActionEvent e)
+    {
+        ProjectAdapter projectAdapter = Registry.get(ProjectAdapter.class);
+        Project project = projectAdapter.getProject();
 
-		if ((project != null) && (project.isModified()))
-		{
-			if (!UIUtils
-					.confirm(Registry.get(MainFrameController.class).getView(), "New Project",
-							"You have unsaved changes. Do you really want to start a new project?\n\nThis action cannot be undone."))
-			{
-				return;
-			}
-		}
+        if (project != null && project.isModified())
+        {
+            if (!UIUtils.confirm(Registry.get(MainFrameController.class).getView(), "New Project",
+                "You have unsaved changes. Do you really want to start a new project?\n\nThis action cannot be undone."))
+            {
+                return;
+            }
+        }
 
-		Registry.getUndoManager().discardAllEdits();
+        Registry.getUndoManager().discardAllEdits();
 
-		projectAdapter.setProject(new Project());
+        projectAdapter.setProject(new Project());
 
-		Registry.get(StatusBarController.class).setMessage("Project created.");
-	}
+        Registry.get(StatusBarController.class).setMessage("Project created.");
+    }
 
 }

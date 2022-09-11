@@ -12,40 +12,40 @@ import org.cbm.editor.font.model.events.ProjectEvent;
 public class CreateCharacterBlocksAction extends AbstractAction
 {
 
-	private static final long serialVersionUID = -6616785345341082215L;
+    private static final long serialVersionUID = -6616785345341082215L;
 
-	private final ProjectAdapter projectAdapter;
+    private final ProjectAdapter projectAdapter;
 
-	public CreateCharacterBlocksAction()
-	{
-		super("Add Character Blocks...", Icon.ADD_MORE.getIcon());
+    public CreateCharacterBlocksAction()
+    {
+        super("Add Character Blocks...", Icon.ADD_MORE.getIcon());
 
-		projectAdapter = Registry.get(ProjectAdapter.class).bind(this);
+        projectAdapter = Registry.get(ProjectAdapter.class).bind(this);
 
-		putValue(SHORT_DESCRIPTION, "Creates and adds blocks for multiple characters");
+        putValue(SHORT_DESCRIPTION, "Creates and adds blocks for multiple characters");
 
-		updateStatus();
-	}
+        updateStatus();
+    }
 
-	public void handleEvent(ProjectEvent event)
-	{
-		updateStatus();
-	}
+    public void handleEvent(ProjectEvent event)
+    {
+        updateStatus();
+    }
 
-	private void updateStatus()
-	{
-		setEnabled(projectAdapter.getProject() != null);
-	}
+    private void updateStatus()
+    {
+        setEnabled(projectAdapter.getProject() != null);
+    }
 
-	/**
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
-	@Override
-	public void actionPerformed(final ActionEvent e)
-	{
-		final CreateCharacterBlocksDialog dialog = new CreateCharacterBlocksDialog();
+    /**
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
+    @Override
+    public void actionPerformed(final ActionEvent e)
+    {
+        final CreateCharacterBlocksDialog dialog = new CreateCharacterBlocksDialog();
 
-		dialog.setVisible(true);
-	}
+        dialog.setVisible(true);
+    }
 
 }

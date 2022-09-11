@@ -5,18 +5,18 @@ import org.cbm.editor.font.model.Block;
 public class BlockEvent
 {
 
-	private final Block block;
+    private final Block block;
 
-	public BlockEvent(final Block block)
-	{
-		super();
+    public BlockEvent(final Block block)
+    {
+        super();
 
-		this.block = block;
-	}
+        this.block = block;
+    }
 
-	public Block getBlock()
-	{
-		return block;
-	}
+    public Block getBlock()
+    {
+        return block;
+    }
 
 }

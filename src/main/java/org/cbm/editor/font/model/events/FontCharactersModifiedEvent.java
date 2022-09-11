@@ -9,33 +9,33 @@ import org.cbm.editor.font.model.Font;
 public class FontCharactersModifiedEvent extends FontModifiedEvent
 {
 
-	public static final Set<Integer> ALL = new HashSet<Integer>();
+    public static final Set<Integer> ALL = new HashSet<>();
 
-	static
-	{
-		for (int i = 0; i < 256; i += 1)
-		{
-			ALL.add(Integer.valueOf(i));
-		}
-	}
+    static
+    {
+        for (int i = 0; i < 256; i += 1)
+        {
+            ALL.add(Integer.valueOf(i));
+        }
+    }
 
-	private final Set<Integer> characters;
+    private final Set<Integer> characters;
 
-	public FontCharactersModifiedEvent(final Font font, final Set<Integer> characters)
-	{
-		super(font);
+    public FontCharactersModifiedEvent(final Font font, final Set<Integer> characters)
+    {
+        super(font);
 
-		this.characters = Collections.unmodifiableSet(characters);
-	}
+        this.characters = Collections.unmodifiableSet(characters);
+    }
 
-	public Set<Integer> getCharacters()
-	{
-		return characters;
-	}
+    public Set<Integer> getCharacters()
+    {
+        return characters;
+    }
 
-	public boolean containsCharacter(final int character)
-	{
-		return characters.contains(Integer.valueOf(character));
-	}
+    public boolean containsCharacter(final int character)
+    {
+        return characters.contains(Integer.valueOf(character));
+    }
 
 }

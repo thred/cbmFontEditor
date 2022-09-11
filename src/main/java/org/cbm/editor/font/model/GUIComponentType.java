@@ -3,12 +3,12 @@ package org.cbm.editor.font.model;
 public enum GUIComponentType
 {
 
-	NONE,
+    NONE,
 
-	EDIT,
+    EDIT,
 
-	BLOCK,
+    BLOCK,
 
-	FONT
+    FONT
 
 }

@@ -19,43 +19,43 @@ import org.cbm.editor.font.util.Palette;
 public class EditMenu extends JPopupMenu
 {
 
-	private static final long serialVersionUID = -7348948975571399612L;
+    private static final long serialVersionUID = -7348948975571399612L;
 
-	private final List<BlockColorAction> colorActions;
+    private final List<BlockColorAction> colorActions;
 
-	public EditMenu()
-	{
-		super();
+    public EditMenu()
+    {
+        super();
 
-		colorActions = new ArrayList<BlockColorAction>();
+        colorActions = new ArrayList<>();
 
-		for (final Palette color : Palette.values())
-		{
-			BlockColorAction action = new BlockColorAction(color);
+        for (final Palette color : Palette.values())
+        {
+            BlockColorAction action = new BlockColorAction(color);
 
-			colorActions.add(action);
-			add(action);
-		}
+            colorActions.add(action);
+            add(action);
+        }
 
-		addSeparator();
+        addSeparator();
 
-		add(Registry.get(CutAction.class));
-		add(Registry.get(CopyAction.class));
-		add(Registry.get(PasteAction.class));
-	}
+        add(Registry.get(CutAction.class));
+        add(Registry.get(CopyAction.class));
+        add(Registry.get(PasteAction.class));
+    }
 
-	@Override
-	public void show(final Component invoker, final int x, final int y)
-	{
-		BlockComponent blockComponent = (BlockComponent) invoker;
-		BlockState state = new BlockState(invoker, blockComponent.transfer(new Point(x, y)));
+    @Override
+    public void show(final Component invoker, final int x, final int y)
+    {
+        BlockComponent blockComponent = (BlockComponent) invoker;
+        BlockState state = new BlockState(invoker, blockComponent.transfer(new Point(x, y)));
 
-		for (final BlockColorAction action : colorActions)
-		{
-			action.setState(state);
-		}
+        for (final BlockColorAction action : colorActions)
+        {
+            action.setState(state);
+        }
 
-		super.show(invoker, x, y);
-	}
+        super.show(invoker, x, y);
+    }
 
 }

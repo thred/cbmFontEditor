@@ -24,140 +24,140 @@ import org.cbm.editor.font.ui.video.VideoEmulationBlockImage;
 public class BlockBlockLayer extends AbstractBlockLayer
 {
 
-	private final FontAdapter fontAdapter;
-	private final BlockAdapter blockAdapter;
+    private final FontAdapter fontAdapter;
+    private final BlockAdapter blockAdapter;
 
-	private BlockImage image;
+    private BlockImage image;
 
-	public BlockBlockLayer()
-	{
-		super();
+    public BlockBlockLayer()
+    {
+        super();
 
-		Registry.get(ProjectAdapter.class).bind(this);
-		
-		fontAdapter = Registry.get(FontAdapter.class).bind(this);
-		blockAdapter = Registry.get(BlockAdapter.class).bind(this);
+        Registry.get(ProjectAdapter.class).bind(this);
 
-		updateState();
-	}
+        fontAdapter = Registry.get(FontAdapter.class).bind(this);
+        blockAdapter = Registry.get(BlockAdapter.class).bind(this);
 
-	public void handleEvent(ProjectSwitchedEvent event)
-	{
-		updateState();
-	}
+        updateState();
+    }
 
-	public void handleEvent(FontSwitchedEvent event)
-	{
-		updateState();
-	}
+    public void handleEvent(ProjectSwitchedEvent event)
+    {
+        updateState();
+    }
 
-	public void handleEvent(BlockSwitchedEvent event)
-	{
-		updateState();
-	}
+    public void handleEvent(FontSwitchedEvent event)
+    {
+        updateState();
+    }
 
-	public void handleEvent(FontModifiedEvent event)
-	{
-		repaint();
-	}
+    public void handleEvent(BlockSwitchedEvent event)
+    {
+        updateState();
+    }
 
-	public void handleEvent(BlockModifiedEvent event)
-	{
-		repaint();
-	}
+    public void handleEvent(FontModifiedEvent event)
+    {
+        repaint();
+    }
 
-	private void updateState()
-	{
-		invalidateImage();
+    public void handleEvent(BlockModifiedEvent event)
+    {
+        repaint();
+    }
 
-		revalidate();
-	}
+    private void updateState()
+    {
+        invalidateImage();
 
-	@Override
-	public void invalidateImage()
-	{
-		if (image != null)
-		{
-			image.destroy();
-		}
+        revalidate();
+    }
 
-		image = null;
-	}
+    @Override
+    public void invalidateImage()
+    {
+        if (image != null)
+        {
+            image.destroy();
+        }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.cbm.editor.font.ui.block.blocklayer.BlockLayer#getFont()
-	 */
-	@Override
-	public Font getFont()
-	{
-		return fontAdapter.getFont();
-	}
+        image = null;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.cbm.editor.font.ui.block.blocklayer.BlockLayer#getBlock()
-	 */
-	@Override
-	public Block getBlock()
-	{
-		return blockAdapter.getBlock();
-	}
+    /**
+     * {@inheritDoc}
+     *
+     * @see org.cbm.editor.font.ui.block.blocklayer.BlockLayer#getFont()
+     */
+    @Override
+    public Font getFont()
+    {
+        return fontAdapter.getFont();
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.cbm.editor.font.ui.block.blocklayer.AbstractBlockLayer#getCursor(java.awt.Point,
-	 *      org.cbm.editor.font.model.Tool)
-	 */
-	@Override
-	public Cursor getCursor(Point mousePosition, Tool tool)
-	{
-		if (tool == Tool.SELECTION)
-		{
-			return CBMCursor.SELECTION.getCursor();
-		}
+    /**
+     * {@inheritDoc}
+     *
+     * @see org.cbm.editor.font.ui.block.blocklayer.BlockLayer#getBlock()
+     */
+    @Override
+    public Block getBlock()
+    {
+        return blockAdapter.getBlock();
+    }
 
-		return CBMCursor.POINTER.getCursor();
-	}
+    /**
+     * {@inheritDoc}
+     *
+     * @see org.cbm.editor.font.ui.block.blocklayer.AbstractBlockLayer#getCursor(java.awt.Point,
+     *      org.cbm.editor.font.model.Tool)
+     */
+    @Override
+    public Cursor getCursor(Point mousePosition, Tool tool)
+    {
+        if (tool == Tool.SELECTION)
+        {
+            return CBMCursor.SELECTION.getCursor();
+        }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see org.cbm.editor.font.ui.block.blocklayer.BlockLayer#draw(java.awt.Graphics2D, double)
-	 */
-	@Override
-	public void draw(Graphics2D g)
-	{
-		double zoom = getComponent().getZoom();
-		Font font = getFont();
+        return CBMCursor.POINTER.getCursor();
+    }
 
-		if (font == null)
-		{
-			return;
-		}
+    /**
+     * {@inheritDoc}
+     *
+     * @see org.cbm.editor.font.ui.block.blocklayer.BlockLayer#draw(java.awt.Graphics2D, double)
+     */
+    @Override
+    public void draw(Graphics2D g)
+    {
+        double zoom = getComponent().getZoom();
+        Font font = getFont();
 
-		Block block = blockAdapter.getBlock();
+        if (font == null)
+        {
+            return;
+        }
 
-		if (block == null)
-		{
-			return;
-		}
+        Block block = blockAdapter.getBlock();
 
-		BlockImage currentImage = image;
+        if (block == null)
+        {
+            return;
+        }
 
-		if (currentImage == null)
-		{
-			currentImage = (getComponent().isPal()) ? new VideoEmulationBlockImage(font, block)
-					: new DefaultBlockImage(font, block);
-			image = currentImage;
-		}
+        BlockImage currentImage = image;
 
-		currentImage.draw(g, new Point(getXInPixel(), getYInPixel()), zoom);
+        if (currentImage == null)
+        {
+            currentImage =
+                getComponent().isPal() ? new VideoEmulationBlockImage(font, block) : new DefaultBlockImage(font, block);
+            image = currentImage;
+        }
 
-		drawGrid(g);
-	}
+        currentImage.draw(g, new Point(getXInPixel(), getYInPixel()), zoom);
+
+        drawGrid(g);
+    }
 
 }

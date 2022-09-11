@@ -17,395 +17,344 @@ import javax.swing.event.ListSelectionListener;
 public class Listeners
 {
 
-	public static void bindActionListener(final JComponent component, final Object consumer)
-	{
-		bindActionListener(component, null, consumer);
-	}
+    public static void bindActionListener(final JComponent component, final Object consumer)
+    {
+        bindActionListener(component, null, consumer);
+    }
 
-	public static void bindActionListener(final JComponent component, final String command, final Object consumer)
-	{
-		try
-		{
-			Method method = component.getClass().getMethod("addActionListener", ActionListener.class);
+    public static void bindActionListener(final JComponent component, final String command, final Object consumer)
+    {
+        try
+        {
+            Method method = component.getClass().getMethod("addActionListener", ActionListener.class);
 
-			method.invoke(component, new ActionListener()
-			{
-				@Override
-				public void actionPerformed(final ActionEvent e)
-				{
-					SwingUtilities.invokeLater(new Runnable()
-					{
-						@Override
-						public void run()
-						{
-							try
-							{
-								String actionCommand = (command == null) ? e.getActionCommand() : command;
+            method.invoke(component, (ActionListener) e -> SwingUtilities.invokeLater(() -> {
+                try
+                {
+                    String actionCommand = command == null ? e.getActionCommand() : command;
 
-								for (Method method : consumer.getClass().getMethods())
-								{
-									OnAction annotation = method.getAnnotation(OnAction.class);
+                    for (Method method1 : consumer.getClass().getMethods())
+                    {
+                        OnAction annotation = method1.getAnnotation(OnAction.class);
 
-									if (annotation == null)
-									{
-										continue;
-									}
+                        if (annotation == null)
+                        {
+                            continue;
+                        }
 
-									if ((annotation.value().length() == 0)
-											|| (annotation.value().equals(actionCommand)))
-									{
-										Class<?>[] parameterTypes = method.getParameterTypes();
+                        if (annotation.value().length() == 0 || annotation.value().equals(actionCommand))
+                        {
+                            Class<?>[] parameterTypes = method1.getParameterTypes();
 
-										if (parameterTypes.length == 0)
-										{
-											method.invoke(consumer);
-										}
-										else if ((parameterTypes.length == 1)
-												&& (parameterTypes[0] == ActionEvent.class))
-										{
-											method.invoke(consumer, e);
-										}
-										else
-										{
-											throw new IllegalArgumentException("Invalid action handler: " + method);
-										}
-									}
-								}
-							}
-							catch (Exception e)
-							{
-								e.printStackTrace();
-							}
-						}
-					});
-				}
-			});
-		}
-		catch (NoSuchMethodException e)
-		{
-			throw new IllegalArgumentException("Component has not action listener", e);
-		}
-		catch (SecurityException e)
-		{
-			throw new IllegalArgumentException("Failed to add listener", e);
-		}
-		catch (IllegalAccessException e)
-		{
-			throw new IllegalArgumentException("Failed to add listener", e);
-		}
-		catch (IllegalArgumentException e)
-		{
-			throw new IllegalArgumentException("Failed to add listener", e);
-		}
-		catch (InvocationTargetException e)
-		{
-			throw new IllegalArgumentException("Failed to add listener", e);
-		}
-	}
+                            if (parameterTypes.length == 0)
+                            {
+                                method1.invoke(consumer);
+                            }
+                            else if (parameterTypes.length == 1 && parameterTypes[0] == ActionEvent.class)
+                            {
+                                method1.invoke(consumer, e);
+                            }
+                            else
+                            {
+                                throw new IllegalArgumentException("Invalid action handler: " + method1);
+                            }
+                        }
+                    }
+                }
+                catch (Exception e1)
+                {
+                    e1.printStackTrace();
+                }
+            }));
+        }
+        catch (NoSuchMethodException e)
+        {
+            throw new IllegalArgumentException("Component has not action listener", e);
+        }
+        catch (SecurityException e)
+        {
+            throw new IllegalArgumentException("Failed to add listener", e);
+        }
+        catch (IllegalAccessException e)
+        {
+            throw new IllegalArgumentException("Failed to add listener", e);
+        }
+        catch (IllegalArgumentException e)
+        {
+            throw new IllegalArgumentException("Failed to add listener", e);
+        }
+        catch (InvocationTargetException e)
+        {
+            throw new IllegalArgumentException("Failed to add listener", e);
+        }
+    }
 
-	public static void bindChangeListener(final JComponent component, final Object consumer)
-	{
-		bindChangeListener(component, null, consumer);
-	}
+    public static void bindChangeListener(final JComponent component, final Object consumer)
+    {
+        bindChangeListener(component, null, consumer);
+    }
 
-	public static void bindChangeListener(final JComponent component, final String command, final Object consumer)
-	{
-		try
-		{
-			Method method = component.getClass().getMethod("addChangeListener", ChangeListener.class);
+    public static void bindChangeListener(final JComponent component, final String command, final Object consumer)
+    {
+        try
+        {
+            Method method = component.getClass().getMethod("addChangeListener", ChangeListener.class);
 
-			method.invoke(component, new ChangeListener()
-			{
-				@Override
-				public void stateChanged(final ChangeEvent e)
-				{
-					SwingUtilities.invokeLater(new Runnable()
-					{
-						@Override
-						public void run()
-						{
-							try
-							{
-								for (Method method : consumer.getClass().getMethods())
-								{
-									OnChange annotation = method.getAnnotation(OnChange.class);
+            method.invoke(component, (ChangeListener) e -> SwingUtilities.invokeLater(() -> {
+                try
+                {
+                    for (Method method1 : consumer.getClass().getMethods())
+                    {
+                        OnChange annotation = method1.getAnnotation(OnChange.class);
 
-									if (annotation == null)
-									{
-										continue;
-									}
+                        if (annotation == null)
+                        {
+                            continue;
+                        }
 
-									if ((annotation.value().length() == 0) || (annotation.value().equals(command)))
-									{
-										Class<?>[] parameterTypes = method.getParameterTypes();
+                        if (annotation.value().length() == 0 || annotation.value().equals(command))
+                        {
+                            Class<?>[] parameterTypes = method1.getParameterTypes();
 
-										if (parameterTypes.length == 0)
-										{
-											method.invoke(consumer);
-										}
-										else if ((parameterTypes.length == 1)
-												&& (parameterTypes[0] == ChangeEvent.class))
-										{
-											method.invoke(consumer, e);
-										}
-										else
-										{
-											throw new IllegalArgumentException("Invalid change handler: " + method);
-										}
-									}
-								}
-							}
-							catch (Exception e)
-							{
-								e.printStackTrace();
-							}
-						}
-					});
-				}
-			});
-		}
-		catch (NoSuchMethodException e)
-		{
-			throw new IllegalArgumentException("Component has not change listener", e);
-		}
-		catch (SecurityException e)
-		{
-			throw new IllegalArgumentException("Failed to add listener", e);
-		}
-		catch (IllegalAccessException e)
-		{
-			throw new IllegalArgumentException("Failed to add listener", e);
-		}
-		catch (IllegalArgumentException e)
-		{
-			throw new IllegalArgumentException("Failed to add listener", e);
-		}
-		catch (InvocationTargetException e)
-		{
-			throw new IllegalArgumentException("Failed to add listener", e);
-		}
-	}
+                            if (parameterTypes.length == 0)
+                            {
+                                method1.invoke(consumer);
+                            }
+                            else if (parameterTypes.length == 1 && parameterTypes[0] == ChangeEvent.class)
+                            {
+                                method1.invoke(consumer, e);
+                            }
+                            else
+                            {
+                                throw new IllegalArgumentException("Invalid change handler: " + method1);
+                            }
+                        }
+                    }
+                }
+                catch (Exception e1)
+                {
+                    e1.printStackTrace();
+                }
+            }));
+        }
+        catch (NoSuchMethodException e)
+        {
+            throw new IllegalArgumentException("Component has not change listener", e);
+        }
+        catch (SecurityException e)
+        {
+            throw new IllegalArgumentException("Failed to add listener", e);
+        }
+        catch (IllegalAccessException e)
+        {
+            throw new IllegalArgumentException("Failed to add listener", e);
+        }
+        catch (IllegalArgumentException e)
+        {
+            throw new IllegalArgumentException("Failed to add listener", e);
+        }
+        catch (InvocationTargetException e)
+        {
+            throw new IllegalArgumentException("Failed to add listener", e);
+        }
+    }
 
-	public static void bindListSelectionListener(final JComponent component, final Object consumer)
-	{
-		bindChangeListener(component, null, consumer);
-	}
+    public static void bindListSelectionListener(final JComponent component, final Object consumer)
+    {
+        bindChangeListener(component, null, consumer);
+    }
 
-	public static void bindListSelectionListener(final JComponent component, final String command, final Object consumer)
-	{
-		try
-		{
-			Method method = component.getClass().getMethod("addListSelectionListener", ListSelectionListener.class);
+    public static void bindListSelectionListener(final JComponent component, final String command,
+        final Object consumer)
+    {
+        try
+        {
+            Method method = component.getClass().getMethod("addListSelectionListener", ListSelectionListener.class);
 
-			method.invoke(component, new ListSelectionListener()
-			{
-				@Override
-				public void valueChanged(final ListSelectionEvent e)
-				{
-					if (e.getValueIsAdjusting())
-					{
-						return;
-					}
+            method.invoke(component, (ListSelectionListener) e -> {
+                if (e.getValueIsAdjusting())
+                {
+                    return;
+                }
 
-					SwingUtilities.invokeLater(new Runnable()
-					{
-						@Override
-						public void run()
-						{
-							try
-							{
-								for (Method method : consumer.getClass().getMethods())
-								{
-									OnListSelection annotation = method.getAnnotation(OnListSelection.class);
+                SwingUtilities.invokeLater(() -> {
+                    try
+                    {
+                        for (Method method1 : consumer.getClass().getMethods())
+                        {
+                            OnListSelection annotation = method1.getAnnotation(OnListSelection.class);
 
-									if (annotation == null)
-									{
-										continue;
-									}
+                            if (annotation == null)
+                            {
+                                continue;
+                            }
 
-									if ((annotation.value().length() == 0) || (annotation.value().equals(command)))
-									{
-										Class<?>[] parameterTypes = method.getParameterTypes();
+                            if (annotation.value().length() == 0 || annotation.value().equals(command))
+                            {
+                                Class<?>[] parameterTypes = method1.getParameterTypes();
 
-										if (parameterTypes.length == 0)
-										{
-											method.invoke(consumer);
-										}
-										else if ((parameterTypes.length == 1)
-												&& (parameterTypes[0] == ListSelectionEvent.class))
-										{
-											method.invoke(consumer, e);
-										}
-										else
-										{
-											throw new IllegalArgumentException("Invalid list selection handler: "
-													+ method);
-										}
-									}
-								}
-							}
-							catch (Exception e)
-							{
-								e.printStackTrace();
-							}
-						}
-					});
-				}
-			});
-		}
-		catch (NoSuchMethodException e)
-		{
-			throw new IllegalArgumentException("Component has not change listener", e);
-		}
-		catch (SecurityException e)
-		{
-			throw new IllegalArgumentException("Failed to add listener", e);
-		}
-		catch (IllegalAccessException e)
-		{
-			throw new IllegalArgumentException("Failed to add listener", e);
-		}
-		catch (IllegalArgumentException e)
-		{
-			throw new IllegalArgumentException("Failed to add listener", e);
-		}
-		catch (InvocationTargetException e)
-		{
-			throw new IllegalArgumentException("Failed to add listener", e);
-		}
-	}
+                                if (parameterTypes.length == 0)
+                                {
+                                    method1.invoke(consumer);
+                                }
+                                else if (parameterTypes.length == 1 && parameterTypes[0] == ListSelectionEvent.class)
+                                {
+                                    method1.invoke(consumer, e);
+                                }
+                                else
+                                {
+                                    throw new IllegalArgumentException("Invalid list selection handler: " + method1);
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception e1)
+                    {
+                        e1.printStackTrace();
+                    }
+                });
+            });
+        }
+        catch (NoSuchMethodException e)
+        {
+            throw new IllegalArgumentException("Component has not change listener", e);
+        }
+        catch (SecurityException e)
+        {
+            throw new IllegalArgumentException("Failed to add listener", e);
+        }
+        catch (IllegalAccessException e)
+        {
+            throw new IllegalArgumentException("Failed to add listener", e);
+        }
+        catch (IllegalArgumentException e)
+        {
+            throw new IllegalArgumentException("Failed to add listener", e);
+        }
+        catch (InvocationTargetException e)
+        {
+            throw new IllegalArgumentException("Failed to add listener", e);
+        }
+    }
 
-	public static void bindFocusListener(final JComponent component, Object consumer)
-	{
-		bindFocusListener(component, consumer);
-	}
+    public static void bindFocusListener(final JComponent component, Object consumer)
+    {
+        bindFocusListener(component, consumer);
+    }
 
-	public static void bindFocusListener(final JComponent component, final String command, final Object consumer)
-	{
-		try
-		{
-			Method method = component.getClass().getMethod("addFocusListener", FocusListener.class);
+    public static void bindFocusListener(final JComponent component, final String command, final Object consumer)
+    {
+        try
+        {
+            Method method = component.getClass().getMethod("addFocusListener", FocusListener.class);
 
-			method.invoke(component, new FocusListener()
-			{
+            method.invoke(component, new FocusListener()
+            {
 
-				@Override
-				public void focusGained(final FocusEvent e)
-				{
-					SwingUtilities.invokeLater(new Runnable()
-					{
-						@Override
-						public void run()
-						{
-							try
-							{
-								for (Method method : consumer.getClass().getMethods())
-								{
-									OnFocusGained annotation = method.getAnnotation(OnFocusGained.class);
+                @Override
+                public void focusGained(final FocusEvent e)
+                {
+                    SwingUtilities.invokeLater(() -> {
+                        try
+                        {
+                            for (Method method1 : consumer.getClass().getMethods())
+                            {
+                                OnFocusGained annotation = method1.getAnnotation(OnFocusGained.class);
 
-									if (annotation == null)
-									{
-										continue;
-									}
+                                if (annotation == null)
+                                {
+                                    continue;
+                                }
 
-									if ((annotation.value().length() == 0) || (annotation.value().equals(command)))
-									{
-										Class<?>[] parameterTypes = method.getParameterTypes();
+                                if (annotation.value().length() == 0 || annotation.value().equals(command))
+                                {
+                                    Class<?>[] parameterTypes = method1.getParameterTypes();
 
-										if (parameterTypes.length == 0)
-										{
-											method.invoke(consumer);
-										}
-										else if ((parameterTypes.length == 1)
-												&& (parameterTypes[0] == FocusEvent.class))
-										{
-											method.invoke(consumer, e);
-										}
-										else
-										{
-											throw new IllegalArgumentException("Invalid focus gained handler: "
-													+ method);
-										}
-									}
-								}
-							}
-							catch (Exception e)
-							{
-								e.printStackTrace();
-							}
-						}
-					});
-				}
+                                    if (parameterTypes.length == 0)
+                                    {
+                                        method1.invoke(consumer);
+                                    }
+                                    else if (parameterTypes.length == 1 && parameterTypes[0] == FocusEvent.class)
+                                    {
+                                        method1.invoke(consumer, e);
+                                    }
+                                    else
+                                    {
+                                        throw new IllegalArgumentException("Invalid focus gained handler: " + method1);
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception e1)
+                        {
+                            e1.printStackTrace();
+                        }
+                    });
+                }
 
-				@Override
-				public void focusLost(final FocusEvent e)
-				{
-					SwingUtilities.invokeLater(new Runnable()
-					{
-						@Override
-						public void run()
-						{
-							try
-							{
-								for (Method method : consumer.getClass().getMethods())
-								{
-									OnFocusLost annotation = method.getAnnotation(OnFocusLost.class);
+                @Override
+                public void focusLost(final FocusEvent e)
+                {
+                    SwingUtilities.invokeLater(() -> {
+                        try
+                        {
+                            for (Method method1 : consumer.getClass().getMethods())
+                            {
+                                OnFocusLost annotation = method1.getAnnotation(OnFocusLost.class);
 
-									if (annotation == null)
-									{
-										continue;
-									}
+                                if (annotation == null)
+                                {
+                                    continue;
+                                }
 
-									if ((annotation.value().length() == 0) || (annotation.value().equals(command)))
-									{
-										Class<?>[] parameterTypes = method.getParameterTypes();
+                                if (annotation.value().length() == 0 || annotation.value().equals(command))
+                                {
+                                    Class<?>[] parameterTypes = method1.getParameterTypes();
 
-										if (parameterTypes.length == 0)
-										{
-											method.invoke(consumer);
-										}
-										else if ((parameterTypes.length == 1)
-												&& (parameterTypes[0] == FocusEvent.class))
-										{
-											method.invoke(consumer, e);
-										}
-										else
-										{
-											throw new IllegalArgumentException("Invalid focus lost handler: " + method);
-										}
-									}
-								}
-							}
-							catch (Exception e)
-							{
-								e.printStackTrace();
-							}
-						}
-					});
-				}
+                                    if (parameterTypes.length == 0)
+                                    {
+                                        method1.invoke(consumer);
+                                    }
+                                    else if (parameterTypes.length == 1 && parameterTypes[0] == FocusEvent.class)
+                                    {
+                                        method1.invoke(consumer, e);
+                                    }
+                                    else
+                                    {
+                                        throw new IllegalArgumentException("Invalid focus lost handler: " + method1);
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception e1)
+                        {
+                            e1.printStackTrace();
+                        }
+                    });
+                }
 
-			});
-		}
-		catch (NoSuchMethodException e)
-		{
-			throw new IllegalArgumentException("Component has not change listener", e);
-		}
-		catch (SecurityException e)
-		{
-			throw new IllegalArgumentException("Failed to add listener", e);
-		}
-		catch (IllegalAccessException e)
-		{
-			throw new IllegalArgumentException("Failed to add listener", e);
-		}
-		catch (IllegalArgumentException e)
-		{
-			throw new IllegalArgumentException("Failed to add listener", e);
-		}
-		catch (InvocationTargetException e)
-		{
-			throw new IllegalArgumentException("Failed to add listener", e);
-		}
-	}
+            });
+        }
+        catch (NoSuchMethodException e)
+        {
+            throw new IllegalArgumentException("Component has not change listener", e);
+        }
+        catch (SecurityException e)
+        {
+            throw new IllegalArgumentException("Failed to add listener", e);
+        }
+        catch (IllegalAccessException e)
+        {
+            throw new IllegalArgumentException("Failed to add listener", e);
+        }
+        catch (IllegalArgumentException e)
+        {
+            throw new IllegalArgumentException("Failed to add listener", e);
+        }
+        catch (InvocationTargetException e)
+        {
+            throw new IllegalArgumentException("Failed to add listener", e);
+        }
+    }
 
 }

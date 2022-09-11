@@ -9,86 +9,86 @@ import org.cbm.editor.font.util.Events;
 public class ProjectAdapter
 {
 
-	private final Collection<Object> consumers;
+    private final Collection<Object> consumers;
 
-	private Project project;
+    private Project project;
 
-	public ProjectAdapter()
-	{
-		super();
+    public ProjectAdapter()
+    {
+        super();
 
-		consumers = new HashSet<Object>();
-	}
+        consumers = new HashSet<>();
+    }
 
-	public ProjectAdapter bind(Object consumer)
-	{
-		synchronized (consumers)
-		{
-			consumers.add(consumer);
+    public ProjectAdapter bind(Object consumer)
+    {
+        synchronized (consumers)
+        {
+            consumers.add(consumer);
 
-			Events.bind(this, consumer);
+            Events.bind(this, consumer);
 
-			if (project != null)
-			{
-				Events.bind(project, consumer);
-			}
-		}
+            if (project != null)
+            {
+                Events.bind(project, consumer);
+            }
+        }
 
-		return this;
-	}
+        return this;
+    }
 
-	public ProjectAdapter unbind(Object consumer)
-	{
-		synchronized (consumers)
-		{
-			consumers.remove(consumer);
+    public ProjectAdapter unbind(Object consumer)
+    {
+        synchronized (consumers)
+        {
+            consumers.remove(consumer);
 
-			Events.unbind(this, consumer);
+            Events.unbind(this, consumer);
 
-			if (project != null)
-			{
-				Events.unbind(project, consumer);
-			}
-		}
+            if (project != null)
+            {
+                Events.unbind(project, consumer);
+            }
+        }
 
-		return this;
-	}
+        return this;
+    }
 
-	public Project getProject()
-	{
-		return project;
-	}
+    public Project getProject()
+    {
+        return project;
+    }
 
-	public ProjectAdapter setProject(final Project project)
-	{
-		synchronized (consumers)
-		{
-			if (this.project == project)
-			{
-				return this;
-			}
+    public ProjectAdapter setProject(final Project project)
+    {
+        synchronized (consumers)
+        {
+            if (this.project == project)
+            {
+                return this;
+            }
 
-			for (Object consumer : consumers)
-			{
-				if (this.project != null)
-				{
-					Events.unbind(this.project, consumer);
-				}
-				
-				if (project != null)
-				{
-					Events.bind(project, consumer);
-				}
-			}
+            for (Object consumer : consumers)
+            {
+                if (this.project != null)
+                {
+                    Events.unbind(this.project, consumer);
+                }
 
-			final ProjectSwitchedEvent event = new ProjectSwitchedEvent(this.project, project);
+                if (project != null)
+                {
+                    Events.bind(project, consumer);
+                }
+            }
 
-			this.project = project;
+            final ProjectSwitchedEvent event = new ProjectSwitchedEvent(this.project, project);
 
-			Events.fire(this, event);
-		}
+            this.project = project;
 
-		return this;
-	}
+            Events.fire(this, event);
+        }
+
+        return this;
+    }
 
 }

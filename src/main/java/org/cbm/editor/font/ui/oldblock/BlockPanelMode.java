@@ -4,8 +4,8 @@ package org.cbm.editor.font.ui.oldblock;
 public enum BlockPanelMode
 {
 
-	CURSOR,
-	
-	SELECT
-	
+    CURSOR,
+
+    SELECT
+
 }

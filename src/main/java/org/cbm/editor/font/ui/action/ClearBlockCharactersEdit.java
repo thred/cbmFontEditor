@@ -11,67 +11,67 @@ import org.cbm.editor.font.util.Events;
 public class ClearBlockCharactersEdit extends AbstractEdit
 {
 
-	private static final long serialVersionUID = 4512102909605032035L;
+    private static final long serialVersionUID = 4512102909605032035L;
 
-	private final Block block;
-	private final Rectangle rectangle;
+    private final Block block;
+    private final Rectangle rectangle;
 
-	private Block backup;
+    private Block backup;
 
-	public ClearBlockCharactersEdit(Block block, Rectangle rectangle)
-	{
-		super("Clear Block's Characters");
+    public ClearBlockCharactersEdit(Block block, Rectangle rectangle)
+    {
+        super("Clear Block's Characters");
 
-		this.block = block;
-		this.rectangle = rectangle;
-	}
+        this.block = block;
+        this.rectangle = rectangle;
+    }
 
-	/**
-	 * @see org.cbm.editor.font.ui.action.AbstractEdit#execute()
-	 */
-	@Override
-	public void execute()
-	{
-		backup = block.copy();
+    /**
+     * @see org.cbm.editor.font.ui.action.AbstractEdit#execute()
+     */
+    @Override
+    public void execute()
+    {
+        backup = block.copy();
 
-		Events.disable();
-		
-		try
-		{
-			for (int y = 0; y < rectangle.height; y += 1)
-			{
-				for (int x = 0; x < rectangle.width; x += 1)
-				{
-					final int characterX = rectangle.x + x;
-					final int characterY = rectangle.y + y;
+        Events.disable();
 
-					if (block.isCharacterXYInBounds(characterX, characterY))
-					{
-						block.setCharacter(characterX, characterY, -1);
-					}
-				}
-			}
-		}
-		finally
-		{
-			Events.enable();
-		}
+        try
+        {
+            for (int y = 0; y < rectangle.height; y += 1)
+            {
+                for (int x = 0; x < rectangle.width; x += 1)
+                {
+                    final int characterX = rectangle.x + x;
+                    final int characterY = rectangle.y + y;
 
-		block.pack();
-		block.fireModified();
-		Registry.get(ProjectAdapter.class).getProject().setModified(true);
-	}
+                    if (block.isCharacterXYInBounds(characterX, characterY))
+                    {
+                        block.setCharacter(characterX, characterY, -1);
+                    }
+                }
+            }
+        }
+        finally
+        {
+            Events.enable();
+        }
 
-	/**
-	 * @see org.cbm.editor.font.ui.action.AbstractEdit#rollback()
-	 */
-	@Override
-	public void rollback()
-	{
-		block.restore(backup);
-		block.fireModified();
-		Registry.get(ProjectAdapter.class).getProject().setModified(true);
-		Registry.get(StatusBarController.class).setMessage("Reverted clear block's characters");
-	}
+        block.pack();
+        block.fireModified();
+        Registry.get(ProjectAdapter.class).getProject().setModified(true);
+    }
+
+    /**
+     * @see org.cbm.editor.font.ui.action.AbstractEdit#rollback()
+     */
+    @Override
+    public void rollback()
+    {
+        block.restore(backup);
+        block.fireModified();
+        Registry.get(ProjectAdapter.class).getProject().setModified(true);
+        Registry.get(StatusBarController.class).setMessage("Reverted clear block's characters");
+    }
 
 }
